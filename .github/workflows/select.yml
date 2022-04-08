@@ -1,8 +1,6 @@
 name: Select
 on:
   # Runs on manual dispatch
-  schedule:
-    - cron: '10 21 * * *'
   workflow_dispatch:
     inputs:
       salt: 
