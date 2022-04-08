@@ -110,7 +110,7 @@ button {
   position: absolute;
   float: right;
   top: 2.5vh;
-  left: 80vw;
+  left: calc(100vw - 20vh);
   height: 5vh;
   width: 15vh;
   background-color: #fff;
