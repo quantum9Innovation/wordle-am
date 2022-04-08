@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>ቃልነት</title>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="../Favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../Favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../Favicons/favicon-16x16.png">
+    <link rel="manifest" href="../site.webmanifest">
+    <link rel="mask-icon" href="../Favicons/safari-pinned-tab.svg" color="#629e4f">
+    <meta name="apple-mobile-web-app-title" content="ቃልነት">
+    <meta name="application-name" content="ቃልነት">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="../Favicons/mstile-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="The game of Wordle implemented in Amharic" />
+
+    <link rel="stylesheet" href="./index.css">
+    </link>
+
+</head>
+
+<body>
+
+    <p>
+        <a href="..">← Go back</a>
+    </p>
+    <h1>የቃልነት መመሪያዎች</h1>
+    <p>በእንግሊዘኛ</p>
+    <p>
+        Guess the hidden word by playing a series of 5 letter words and getting clues.
+        The goal is to guess the hidden word in as few guesses as possible.
+    </p>
+    
+    <div id="1" class="word">
+        <div class="box 1 pink" id="1-1">ኢ</div>
+        <div class="box 2 gray" id="1-2">ት</div>
+        <div class="box 3 blue" id="1-3">ዮ</div>
+        <div class="box 4 gray" id="1-4">ጵ</div>
+        <div class="box 5 gray" id="1-5">ያ</div>
+    </div>
+
+    <p>
+        Pink means that the position is right and the letter is in the right family.
+        However, the letter played is not the <em>exact</em> letter used in the word because it has a different ending vowel
+        (e.g. <em>ኢ</em> instead of <em>እ</em>).
+    </p>
+    <p>Gray means neither the letter nor any letter in its family are part of the word.</p>
+    <p>
+        Blue means that the position is wrong but the letter is in the right family.
+        Like pink, blue tells you that the letter played is not an <em>exact</em> match but belongs to the same letter family
+        (in this case, <em>ዮ</em> is played instead of <em>የ</em>).
+    </p>
+    
+    <div id="2" class="word">
+        <div class="box 1 green" id="2-1">እ</div>
+        <div class="box 2 gray" id="2-2">ህ</div>
+        <div class="box 3 gray" id="2-3">ት</div>
+        <div class="box 4 yellow" id="2-4">የ</div>
+        <div class="box 5 gray" id="2-5">ው</div>
+    </div>
+
+    <p>
+        Green means the letter is exactly right and is also in the right place.
+        These letters are right as they are played (i.e. no changes are necessary).
+    </p>
+    <p>
+        Yellow means the letter is exactly right but is misplaced.
+        The only thing that needs to be changed to make them right is their position.
+    </p>
+    
+    <div id="3" class="word">
+        <div class="box 1 green" id="3-1">እ</div>
+        <div class="box 2 green" id="3-2">የ</div>
+        <div class="box 3 green" id="3-3">ዘ</div>
+        <div class="box 4 green" id="3-4">ለ</div>
+        <div class="box 5 green" id="3-5">ሉ</div>
+    </div>
+
+    <p>
+        The game ends when all the letters are correct.
+        You do <em>not</em> need to use all the clues provided in previous guesses in your next guess.
+        In fact, sometimes it can be helpful to ignore some of the clues to try and get more useful clues using other words.
+    </p>
+    <p>A new <em>ቃልነት</em> will be released every day at midnight East African Time (EAT/UTC+3).</p>
+    <p>Good luck!</p>
+
+</body>
+
+</html>

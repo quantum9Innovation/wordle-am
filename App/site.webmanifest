@@ -1,0 +1,21 @@
+{
+    "name": "\u1243\u120d\u1290\u1275",
+    "short_name": "\u1243\u120d\u1290\u1275",
+    "description": "The game of Wordle implemented in Amharic",
+    "start_url": "./",
+    "icons": [
+        {
+            "src": "./Favicons/android-chrome-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "./Favicons/android-chrome-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "theme_color": "#588f3f",
+    "background_color": "#ffffff",
+    "display": "standalone"
+}
