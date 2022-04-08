@@ -3,6 +3,7 @@ on:
   # Runs midnight EAT/UTC+3 every day
   schedule:
     - cron: '10 21 * * *'
+  workflow_dispatch:
 
 jobs:
   build:
@@ -14,9 +15,21 @@ jobs:
         with:
           python-version: '3.9'
 
+      - name: Configure Git
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git pull
+
       - name: Install requirements
         run: pip install -r Scripts/requirements.txt
 
       - name: Run Wordle script
         run: |
           python Scripts/daily.py
+      
+      - name: Push changes
+        run: |
+          git add .
+          git commit -m "[auto] daily"
+          git push

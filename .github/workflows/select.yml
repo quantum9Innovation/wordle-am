@@ -28,9 +28,21 @@ jobs:
         with:
           python-version: '3.9'
 
+      - name: Configure Git
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git pull
+
       - name: Install requirements
         run: pip install -r Scripts/requirements.txt
 
       - name: Run select script
         run: |
           python Scripts/select.py ${{ github.events.inputs.salt }} ${{ github.events.inputs.month }} ${{ github.events.inputs.day }} ${{ github.events.inputs.year }}
+
+      - name: Push changes
+        run: |
+          git add .
+          git commit -m "[auto] daily"
+          git push
