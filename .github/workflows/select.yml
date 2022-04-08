@@ -1,0 +1,36 @@
+name: Select
+on:
+  # Runs on manual dispatch
+  schedule:
+    - cron: '10 21 * * *'
+  workflow_dispatch:
+    inputs:
+      salt: 
+        type: text
+        required: true
+      month:
+        type: text
+        required: true
+      day:
+        type: text
+        required: true
+      year:
+        type: text
+        required: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v3
+        with:
+          python-version: '3.9'
+
+      - name: Install requirements
+        run: pip install -r Scripts/requirements.txt
+
+      - name: Run select script
+        run: |
+          python Scripts/select.py ${{ github.events.inputs.salt }} ${{ github.events.inputs.month }} ${{ github.events.inputs.day }} ${{ github.events.inputs.year }}
