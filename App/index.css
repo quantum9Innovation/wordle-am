@@ -21,7 +21,6 @@ body {
   padding: 0px;
   height: 100vh;
   width: 100vw;
-  overflow: hidden;
 }
 
 button {
@@ -655,6 +654,8 @@ button {
   }
 
   #keyboard {
+    position: absolute;
+    bottom: 5vh;
     width: 67vw;
     height: 20vh;
     display: block;
@@ -832,6 +833,8 @@ button {
   }
 
   #keyboard {
+    position: absolute;
+    bottom: 5vh;
     width: 80vw;
     height: 20vh;
     display: block;
