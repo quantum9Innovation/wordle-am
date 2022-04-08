@@ -1,4 +1,4 @@
-name: Daily
+name: Select
 on:
   # Runs on manual dispatch
   schedule:
