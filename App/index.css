@@ -788,11 +788,11 @@ button {
   }
 }
 
-@media (orientation: portrait) and (max-width: 450px) {
+@media (orientation: portrait) {
   #content {
     display: block;
     width: 80vw;
-    height: 60vh;
+    height: 100vw;
     margin-left: 10vw;
     padding: 0px;
     padding-top: calc(30vh - 32.5vw);

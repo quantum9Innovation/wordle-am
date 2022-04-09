@@ -187,9 +187,9 @@ const paintLetters = res => {
     // Blue
     for ( let i = 0; i < 5; i++ ) {
 
-        if ( res[i] == 1 ) { 
+        if ( res[i] == 4 ) { 
 
-            paintKey(word[i], 1)
+            paintKey(word[i], 4)
             colorZones.push(word[i])
             
         }
@@ -197,18 +197,6 @@ const paintLetters = res => {
     }
 
     // Yellow
-    for ( let i = 0; i < 5; i++ ) {
-
-        if ( res[i] == 2 ) { 
-
-            paintKey(word[i], 2)
-            colorZones.push(word[i])
-            
-        }
-
-    }
-
-    // Pink
     for ( let i = 0; i < 5; i++ ) {
 
         if ( res[i] == 3 ) { 
@@ -220,12 +208,24 @@ const paintLetters = res => {
 
     }
 
+    // Pink
+    for ( let i = 0; i < 5; i++ ) {
+
+        if ( res[i] == 2 ) { 
+
+            paintKey(word[i], 2)
+            colorZones.push(word[i])
+            
+        }
+
+    }
+
     // Green
     for ( let i = 0; i < 5; i++ ) {
 
-        if ( res[i] == 4 ) { 
+        if ( res[i] == 1 ) { 
 
-            paintKey(word[i], 4)
+            paintKey(word[i], 1)
             colorZones.push(word[i])
             
         }
