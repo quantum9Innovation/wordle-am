@@ -679,7 +679,7 @@ button {
 
   .row {
     width: 250%;
-    overflow-x: scroll;
+    overflow-x: visible;
     padding-left: 4vw;
   }
   
