@@ -158,27 +158,67 @@ const paintKey = (key, color) => {
 
 }
 
+const getLetterStatus = letter => {
+
+    let template = word.split('')
+
+    // First pass - check for exact matches
+    for ( let i = 0; i < 5; i++ ) {
+        if ( letter == template[i] ) return 1
+    }
+
+
+    // Second pass - check for exact family matches
+
+    // Initialize families
+    let template_family = []
+    let letter_family = ''
+
+    for ( let i = 0; i < 5; i++ ) {
+
+        for ( let k = 0; k < fidal.length; k++ ) {
+                
+            if ( fidal[k].includes(template[i]) ) template_family.push(keys[k])
+            if ( letter_family == '' ) {
+                if ( fidal[k].includes(letter) ) letter_family = keys[k]
+            }
+
+        }
+
+    }
+
+    // Check for matches
+    for ( let i = 0; i < 5; i++ ) {
+        if ( letter_family == template_family[i] ) return 2
+    }
+
+
+    // Default: no match
+    return 0
+
+}
+
 const paintLetters = res => {
 
     // Initialization
     let deadZones = []
     let colorZones = []
 
-    let word = []
+    let split_word = []
     for ( let i = 0; i < 5; i++ ) {
 
         let box = document.getElementById(square[0] + '-' + (i + 1))
-        word.push(box.innerText)
+        split_word.push(box.innerText)
 
     }
 
     // Gray
     for ( let i = 0; i < 5; i++ ) {
 
-        if ( res[i] == 0 ) { 
+        if ( res[i] == 0 && getLetterStatus(split_word[i]) == 0 ) { 
 
-            paintKey(word[i], 0)
-            deadZones.push(word[i])
+            paintKey(split_word[i], 0)
+            deadZones.push(split_word[i])
 
         }
 
@@ -187,10 +227,10 @@ const paintLetters = res => {
     // Blue
     for ( let i = 0; i < 5; i++ ) {
 
-        if ( res[i] == 4 ) { 
+        if ( res[i] == 4 && getLetterStatus(split_word[i]) == 2 ) { 
 
-            paintKey(word[i], 4)
-            colorZones.push(word[i])
+            paintKey(split_word[i], 4)
+            colorZones.push(split_word[i])
             
         }
 
@@ -199,10 +239,10 @@ const paintLetters = res => {
     // Yellow
     for ( let i = 0; i < 5; i++ ) {
 
-        if ( res[i] == 3 ) { 
+        if ( res[i] == 3 && getLetterStatus(split_word[i]) == 1 ) { 
 
-            paintKey(word[i], 3)
-            colorZones.push(word[i])
+            paintKey(split_word[i], 3)
+            colorZones.push(split_word[i])
             
         }
 
@@ -211,10 +251,10 @@ const paintLetters = res => {
     // Pink
     for ( let i = 0; i < 5; i++ ) {
 
-        if ( res[i] == 2 ) { 
+        if ( res[i] == 2 && getLetterStatus(split_word[i]) == 2 ) { 
 
-            paintKey(word[i], 2)
-            colorZones.push(word[i])
+            paintKey(split_word[i], 2)
+            colorZones.push(split_word[i])
             
         }
 
@@ -223,10 +263,10 @@ const paintLetters = res => {
     // Green
     for ( let i = 0; i < 5; i++ ) {
 
-        if ( res[i] == 1 ) { 
+        if ( res[i] == 1 && getLetterStatus(split_word[i]) == 1 ) { 
 
-            paintKey(word[i], 1)
-            colorZones.push(word[i])
+            paintKey(split_word[i], 1)
+            colorZones.push(split_word[i])
             
         }
 
