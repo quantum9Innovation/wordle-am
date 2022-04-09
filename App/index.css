@@ -27,6 +27,7 @@ body {
 
 button {
   border: none;
+  color: black;
 }
 
 #load {
@@ -677,6 +678,8 @@ button {
   }
 
   .row {
+    width: 250%;
+    overflow-x: scroll;
     padding-left: 4vw;
   }
   
