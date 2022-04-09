@@ -847,7 +847,7 @@ const enter = () => {
 const alertReveal = () => {
 
     Cookies.set('reveal', 'true', { expires: expire })
-    alert('ቃሉ ' + word + ' ነበር።')
+    alert(word)
 
 }
 
