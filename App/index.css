@@ -794,9 +794,10 @@ button {
     position: absolute;
     margin: 0px;
     width: 80vw;
-    height: 80vh;
-    bottom: 35vh;
+    height: 80vw;
+    bottom: 45vh;
     left: 10vw;
+    top: 15vh;
     padding: 0px;
     padding-left: 7.5vw;
     overflow-x: hidden;
