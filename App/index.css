@@ -788,16 +788,17 @@ button {
   }
 }
 
-@media (orientation: portrait) {
+@media (orientation: portrait) and (max-aspect-ratio: 7/16) {
   #content {
     display: block;
+    position: absolute;
+    margin: 0px;
     width: 80vw;
-    height: 100vw;
-    margin-left: 10vw;
+    height: 80vh;
+    bottom: 35vh;
+    left: 10vw;
     padding: 0px;
-    padding-top: calc(30vh - 32.5vw);
     padding-left: 7.5vw;
-    margin-top: 5vh;
     overflow-x: hidden;
     overflow-y: scroll;
     user-select: none;
