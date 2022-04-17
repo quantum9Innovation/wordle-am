@@ -307,13 +307,13 @@ button {
 }
 
 .show {
-  -webkit-animation: fadeIn 1s;
-  animation: fadeIn 1s;
+  -webkit-animation: fadeIn 0.75s;
+  animation: fadeIn 0.75s;
 }
 
 .hide {
-  -webkit-animation: fadeOut 1s;
-  animation: fadeOut 1s;
+  -webkit-animation: fadeOut 0.75s;
+  animation: fadeOut 0.75s;
 }
 
 .word {
