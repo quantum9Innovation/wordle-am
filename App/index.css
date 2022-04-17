@@ -664,16 +664,19 @@ button {
 @keyframes flip {
   0% {
     height: 8vh;
+    line-height: 8vh;
     margin-top: 0.5vh;
     font-size: 4.8vh;
   }
   50% {
     height: 0vh;
+    line-height: 0vh;
     margin-top: 4.5vh;
     font-size: 0vh;
   }
   100% {
     height: 8vh;
+    line-height: 8vh;
     margin-top: 0.5vh;
     font-size: 4.8vh;
   }
