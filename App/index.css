@@ -775,6 +775,7 @@ button {
   #keyboard {
     width: 80vw;
     left: 10vw;
+    margin-bottom: 5vw;
   }
   
   #modal {
