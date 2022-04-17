@@ -474,7 +474,7 @@ const findInDictionary = word => {
     
     let minBound = 0
     let maxBound = dictionary.length - 1
-
+  
     while (minBound <= maxBound) {
 
         let mid = Math.floor((minBound + maxBound) / 2)
