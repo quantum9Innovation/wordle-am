@@ -16,7 +16,7 @@
   --foreground: black;
 
   /* Loading */
-  --loading-size: 7vw;
+  --loading-size: 7vh;
 }
 
 @font-face {
