@@ -584,7 +584,7 @@ const getWins = () => {
 const makeWord = async () => {
 
     // Generate seeded entropy
-    const seed = expire
+    const seed = expire.toDateString()
     const hash = new TextEncoder().encode(seed)
     const digest = await crypto.subtle.digest('SHA-256', hash)
     const digestArray = Array.from(new Uint8Array(digest))
