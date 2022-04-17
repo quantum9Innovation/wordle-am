@@ -13,10 +13,39 @@
   --select: #0066ff;
   --theme: #588f3f;
   --background: white;
+  --tone1: #e6e6e6;
   --foreground: black;
+  --transparent: rgba(255, 255, 255, 0.25);
+  --semi-transparent: rgba(255, 255, 255, 0.5);
 
   /* Loading */
   --loading-size: 7vh;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Colors */
+    --gray: #787c7e;
+    --green: #6aaa64;
+    --yellow: #c9b458;
+    --pink: #ff0f9b;
+    --blue: #59c2ff;
+    --red: #ff5b5b;
+    --select: #3355ee;
+    --theme: #588f3f;
+    --background: #333;
+    --tone1: #555;
+    --foreground: white;
+    --transparent: rgba(0, 0, 0, 0.25);
+    --semi-transparent: rgba(0, 0, 0, 0.5);
+  
+    /* Loading */
+    --loading-size: 7vh;
+  }
+
+  .inline-icon, .header-icon {
+    filter: invert();
+  }
 }
 
 @font-face {
@@ -33,13 +62,13 @@ body {
   width: 100vw;
   font-family: noto;
   background-color: var(--background);
-  color: black;
+  color: var(--foreground);
 }
 
 button {
   border: none;
   font-family: noto;
-  color: black;
+  color: var(--foreground);
 }
 
 #load {
@@ -99,7 +128,7 @@ button {
   margin: 0px;
   height: 10vh;
   width: 100vw;
-  border-bottom: 0.375vh solid #e6e6e6;
+  border-bottom: 0.375vh solid var(--tone1);
 }
 
 #title {
@@ -168,14 +197,14 @@ button {
 
 @supports (backdrop-filter: blur(1vh)) {
   #reveal-modal {
-    background: rgba(255, 255, 255, 0.25);
+    background: var(--transparent);
     backdrop-filter: blur(1vh);
   }
 }
 
 @supports not (backdrop-filter: blur(1vh)) {
   #reveal-modal {
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: var(--semi-transparent);
   }
 }
 
@@ -255,7 +284,7 @@ button {
   height: 20vh;
   left: calc(50vw - 35vh);
   top: 74vh;
-  color: black;
+  color: var(--foreground);
 }
 
 #modal {
@@ -339,7 +368,7 @@ button {
   text-align: center;
   font-size: 4.8vh;
   font-weight: bold;
-  border: 0.375vh solid #e6e6e6;
+  border: 0.375vh solid var(--tone1);
 }
 
 .box.gray {
@@ -403,7 +432,7 @@ button {
   margin: 0px;
   margin-right: 0.5vh;
   border-radius: 0.5vh;
-  background-color: #e6e6e6;
+  background-color: var(--tone1);
   font-size: 3.75vh;
   text-align: center;
   user-select: none;
@@ -475,7 +504,7 @@ button {
   line-height: 6vh;
 
   background-color: var(--background);
-  color: rgb(0, 0, 0);
+  color: var(--foreground);
   box-shadow: 0vh 0vh 5vh 1vh rgba(0, 0, 0, 0.25);
 
   text-align: center;
@@ -511,7 +540,7 @@ button {
 
 .carousel-letter {
   float: left;
-  color: black;
+  color: var(--foreground);
   width: 5vh;
   height: 5vh;
   line-height: 5vh;
@@ -733,7 +762,7 @@ button {
     margin-bottom: 0px;
     margin-right: 0.5vh;
     border-radius: 0.5vh;
-    background-color: #e6e6e6;
+    background-color: var(--tone1);
     font-size: 3.75vw;
     text-align: center;
     user-select: none;
