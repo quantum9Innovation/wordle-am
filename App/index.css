@@ -282,7 +282,7 @@ button {
   position: absolute;
   width: 66vh;
   height: 20vh;
-  left: calc(50vw - 35vh);
+  left: calc(50vw - 33vh);
   top: 74vh;
   color: var(--foreground);
 }
@@ -968,6 +968,7 @@ button {
   #content {
     width: 100vw;
     height: 80vw;
+    top: calc(10vh + (70vh - 80vw) / 3);
     left: 0px;
     padding-top: 0px;
     padding-left: 10vw;
@@ -975,6 +976,7 @@ button {
   
   #keyboard {
     width: 90vw;
+    top: calc(10vh + 80vw + 2 * (70vh - 80vw) / 3);
     left: 5vw;
   }
   
@@ -1117,20 +1119,38 @@ button {
     height: 50vh;
   }
   
-  #content {
-    top: calc(10vh + (70vh - 80vw) / 3);
-  }
-  
-  #keyboard {
-    top: calc(10vh + 80vw + 2 * (70vh - 80vw) / 3);
-  }
-  
   .key {
     line-height: 5vh;
   }
   
   .inline-icon {
     margin-top: calc(2vh - 2.5vw);
+  }
+
+}
+
+@media (pointer:none), (pointer:coarse) {
+
+  @media (max-aspect-ratio: 1/1) and (max-width: 3in) {
+
+    #keyboard {
+      top: 0px;
+      left: 0px;
+      height: 95vh;
+      width: 100vw;
+      padding-top: 75vh;
+      padding-left: 5vw;
+      overflow-x: scroll;
+    }
+
+    .row {
+      min-width: calc(3in + 8vw);
+    }
+  
+    .key {
+      min-width: 0.25in;
+    }
+
   }
 
 }
