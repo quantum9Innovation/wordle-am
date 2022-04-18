@@ -64,7 +64,13 @@ let square = [1, 1]
 // Helper funcs
 const squish = () => {
     
-    let height = window.innerHeight
+    const rootElement = document.querySelector(":root")
+    const viewportHeight = rootElement.getBoundingClientRect().height
+    const windowHeight = window.innerHeight
+    const blockingHeight = viewportHeight - windowHeight
+    rootElement.style.height = `calc(100vh - ${blockingHeight}px)`
+    
+    let height = rootElement.style.height
     let vh = height / 100
     let keyboard = document.getElementById('keyboard')
     let content = document.getElementById('content')
