@@ -913,12 +913,12 @@ button {
   
   #left-bar {
     left: 5vw;
-    width: 20vw;
+    width: 25vw;
   }
   
   #right-bar {
-    right: 5vw;
-    width: 20vw;
+    right: 0vw;
+    width: 25vw;
   }
   
   .header-button {
