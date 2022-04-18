@@ -1,8 +1,9 @@
 name: Daily
 on:
   # Runs midnight EAT/UTC+3 every day
+  # 5 min delay enforced to account for clock synchronization issues
   schedule:
-    - cron: '10 21 * * *'
+    - cron: '5 21 * * *'
   workflow_dispatch:
 
 jobs:
