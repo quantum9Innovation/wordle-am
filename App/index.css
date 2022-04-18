@@ -427,6 +427,7 @@ button {
   position: relative;
   width: 5vh;
   height: 100%;
+  line-height: 4.75vh;
   float: left;
   padding: 0px;
   margin: 0px;
