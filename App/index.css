@@ -14,6 +14,7 @@
   --theme: #588f3f;
   --background: white;
   --tone1: #e6e6e6;
+  --tone2: #bebebe;
   --foreground: black;
   --transparent: rgba(255, 255, 255, 0.25);
   --semi-transparent: rgba(255, 255, 255, 0.5);
@@ -35,6 +36,7 @@
     --theme: #588f3f;
     --background: #333;
     --tone1: #555;
+    --tone2: #999;
     --foreground: white;
     --transparent: rgba(0, 0, 0, 0.25);
     --semi-transparent: rgba(0, 0, 0, 0.5);
@@ -439,6 +441,10 @@ button {
   user-select: none;
 }
 
+.key:hover {
+  background-color: var(--tone2);
+}
+
 .key.gray {
   color: white;
   background-color: var(--gray);
@@ -462,6 +468,14 @@ button {
 .key.blue {
   color: white;
   background-color: var(--blue);
+}
+
+.key.gray:hover,
+.key.green:hover,
+.key.yellow:hover,
+.key.pink:hover,
+.key.blue:hover {
+  filter: brightness(1.35);
 }
 
 .icon-container {
