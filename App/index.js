@@ -62,6 +62,20 @@ let square = [1, 1]
 
 
 // Helper funcs
+const squish = () => {
+    
+    let height = window.innerHeight
+    let vh = height / 100
+    let keyboard = document.getElementById('keyboard')
+    let content = document.getElementById('content')
+
+    let maxHeight = 75 * vh
+    let clearance = content.offsetTop + content.clientWidth
+
+    if (maxHeight > clearance) keyboard.style.top = `${maxHeight}px`
+
+}
+
 const paint = sq => {
     
     let box = document.getElementById(sq[0] + '-' + sq[1])
@@ -947,6 +961,7 @@ window.onload = () => {
 
     logVisit()
     paint(square)
+    squish()
 
     let promises = [
         loadDictionary(dictionaryURL), 
@@ -988,3 +1003,5 @@ document.addEventListener(
     
     }
 )
+
+window.addEventListener('resize', squish) 
