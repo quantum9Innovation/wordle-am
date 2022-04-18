@@ -70,7 +70,7 @@ const squish = () => {
     let content = document.getElementById('content')
 
     let maxHeight = 75 * vh
-    let clearance = content.offsetTop + content.clientWidth
+    let clearance = content.offsetTop + content.clientHeight
 
     if (maxHeight > clearance) keyboard.style.top = `${maxHeight}px`
 
