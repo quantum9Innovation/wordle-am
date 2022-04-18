@@ -174,7 +174,7 @@ button {
 }
 
 #stats-button {
-  margin-left: 4vh;
+  margin-left: 3vh;
 }
 
 #settings-button {
@@ -720,7 +720,7 @@ button {
   }
   
   #stats-button {
-    margin-left: 4vw;
+    margin-left: 3vw;
   }
   
   .header-icon {
@@ -941,7 +941,7 @@ button {
   }
   
   #stats-button {
-    margin-left: 1vw;
+    margin-left: 0vw;
   }
   
   .header-icon {
@@ -1109,7 +1109,7 @@ button {
   }
   
   #stats-button {
-    margin-left: 3vw;
+    margin-left: 2vw;
   }
   
   .header-icon {
