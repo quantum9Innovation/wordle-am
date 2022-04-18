@@ -543,7 +543,26 @@ const expireeDate = () => {
     return expire
 
 }
-const logVisit = () => Cookies.set('visited', 'alpha', { expires: 7 })
+const logVisit = () => { 
+    
+    let set = () => Cookies.set('visited', 'beta.1', { expires: 7 })
+    let visit = Cookies.get('visited')
+
+    if ( !visit ) { 
+        set(); return
+    } else if ( visit != 'beta.1' ) Object.keys(Cookies.get()).forEach(
+        
+        (cookieName) => {
+
+            var neededAttributes = {}
+            Cookies.remove(cookieName, neededAttributes)
+            set()
+
+        }
+        
+    )
+
+}
 const logWord = () => { 
 
     let word = []
@@ -563,10 +582,9 @@ const logWin = () => {
     let period = expire
     Cookies.set('win', square[0], { expires: period })
     
-    const today = new Date()
-    const Y = today.getFullYear()
-    const M = today.getMonth() + 1
-    const D = today.getDate()
+    const Y = period.getFullYear()
+    const M = period.getMonth() + 1
+    const D = period.getDate()
 
     Cookies.set('win-' + M + '/' + D + '/' + Y, square[0], { expires: 365 })
 
