@@ -62,6 +62,26 @@ let square = [1, 1]
 
 
 // Helper funcs
+const squish = () => {
+    
+    const rootElement = document.querySelector(":root")
+    const viewportHeight = rootElement.getBoundingClientRect().height
+    const windowHeight = window.innerHeight
+    const blockingHeight = viewportHeight - windowHeight
+    rootElement.style.height = `calc(100vh - ${blockingHeight}px)`
+    
+    let height = rootElement.style.height
+    let vh = height / 100
+    let keyboard = document.getElementById('keyboard')
+    let content = document.getElementById('content')
+
+    let maxHeight = 75 * vh
+    let clearance = content.offsetTop + content.clientHeight
+
+    if (maxHeight > clearance) keyboard.style.top = `${maxHeight}px`
+
+}
+
 const paint = sq => {
     
     let box = document.getElementById(sq[0] + '-' + sq[1])
@@ -474,7 +494,7 @@ const findInDictionary = word => {
     
     let minBound = 0
     let maxBound = dictionary.length - 1
-
+  
     while (minBound <= maxBound) {
 
         let mid = Math.floor((minBound + maxBound) / 2)
@@ -523,7 +543,26 @@ const expireeDate = () => {
     return expire
 
 }
-const logVisit = () => Cookies.set('visited', 'alpha', { expires: 7 })
+const logVisit = () => { 
+    
+    let set = () => Cookies.set('visited', 'beta.1', { expires: 7 })
+    let visit = Cookies.get('visited')
+
+    if ( !visit ) { 
+        set(); return
+    } else if ( visit != 'beta.1' ) Object.keys(Cookies.get()).forEach(
+        
+        (cookieName) => {
+
+            var neededAttributes = {}
+            Cookies.remove(cookieName, neededAttributes)
+            set()
+
+        }
+        
+    )
+
+}
 const logWord = () => { 
 
     let word = []
@@ -543,10 +582,9 @@ const logWin = () => {
     let period = expire
     Cookies.set('win', square[0], { expires: period })
     
-    const today = new Date()
-    const Y = today.getFullYear()
-    const M = today.getMonth() + 1
-    const D = today.getDate()
+    const Y = period.getFullYear()
+    const M = period.getMonth() + 1
+    const D = period.getDate()
 
     Cookies.set('win-' + M + '/' + D + '/' + Y, square[0], { expires: 365 })
 
@@ -584,7 +622,7 @@ const getWins = () => {
 const makeWord = async () => {
 
     // Generate seeded entropy
-    const seed = expire
+    const seed = expire.toDateString()
     const hash = new TextEncoder().encode(seed)
     const digest = await crypto.subtle.digest('SHA-256', hash)
     const digestArray = Array.from(new Uint8Array(digest))
@@ -947,6 +985,7 @@ window.onload = () => {
 
     logVisit()
     paint(square)
+    squish()
 
     let promises = [
         loadDictionary(dictionaryURL), 
@@ -988,3 +1027,5 @@ document.addEventListener(
     
     }
 )
+
+window.addEventListener('resize', squish) 
