@@ -7,11 +7,16 @@ import Cookies from './Modules/js.cookie.min.mjs'
 
 // Constants
 let word = ''
+
 let lastUpdate = new Date()
 let expire = new Date()
+let waiting = false
+
 let dictionary = []
+
 const updateURL = './Data/update.txt'
 const dictionaryURL = './Data/dictionary.txt'
+
 const fidal = [
     ['ሀ', 'ሁ', 'ሂ', 'ሃ', 'ሄ', 'ህ', 'ሆ'],
     ['ለ', 'ሉ', 'ሊ', 'ላ', 'ሌ', 'ል', 'ሎ', 'ሏ'],
@@ -59,6 +64,39 @@ let timerCounter = 10
 let timerInterval
 let content = document.getElementById('content')
 let square = [1, 1]
+
+
+// Timezones
+
+// local -> UTC
+const toUTC = date => {
+
+    let now = new Date()
+    return new Date(
+        date.getTime() + now.getTimezoneOffset() * 60 * 1000
+    )
+
+}
+
+// local -> EAT
+const toEAT = date => {
+
+    let utc = toUTC(date)
+    return new Date(
+        utc.getTime() + 3 * 60 * 60 * 1000
+    )
+
+}
+
+// EAT -> local
+const toLocal = date => {
+
+    let now = new Date()
+    return new Date(
+        date.getTime() - (now.getTimezoneOffset() + 3 * 60) * 60 * 1000
+    )
+
+}
 
 
 // Helper funcs
@@ -477,6 +515,8 @@ const loadUpdate = async URL => {
     let date = text.split('\n')[0].split('/')
     
     lastUpdate = new Date(date[2], date[0] - 1, date[1])
+    lastUpdate.setHours(0, 0, 0, 0)
+    lastUpdate = toLocal(lastUpdate)
 
 }
 
@@ -515,28 +555,19 @@ const findInDictionary = word => {
 const expireeDate = () => {
 
     let today = new Date()
-    let todayEAT = new Date(
-        today.getTime() + (today.getTimezoneOffset() + 180) * 60000
-    )
 
-    let expireEAT = new Date(todayEAT.getTime())
+    let expireEAT = toEAT(today)
     expireEAT.setHours(0, 0, 0, 0)
     expireEAT.setDate(expireEAT.getDate() + 1)
 
-    let expire = new Date(
-        expireEAT.getTime() - (today.getTimezoneOffset() + 180) * 60000
-    )
+    let expire = toLocal(expireEAT)
     let e_expire = lastUpdate
     e_expire.setDate(e_expire.getDate() + 1)
-    e_expire = new Date(
-        e_expire.getTime() - (today.getTimezoneOffset() + 180) * 60000
-    )
 
     if ( expire.getTime() != e_expire.getTime() ) {
         
         let diff = Date.now() - e_expire
-        let safeExpire = new Date(e_expire.getTime() + 30 * 60 * 1000)
-        if ( diff < 30 * 60 * 1000 ) return safeExpire
+        if ( diff < 30 * 60 * 1000 ) { waiting = true; return e_expire }
 
     }
 
@@ -998,6 +1029,10 @@ window.onload = () => {
     ).then ( () => { 
 
         expire = expireeDate()
+        if (waiting) {
+            window.location.replace('/waiting.html')
+        }
+
         makeWord().then( () => {
             
             endLoad()
