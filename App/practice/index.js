@@ -804,14 +804,9 @@ const enter = () => {
 
 
 // Menu funcs
-const alertReveal = () => {
+const alertReveal = () => alert(word)
 
-    // Cookies.set('reveal', 'true', { expires: expire })
-    alert('ቃሉ ' + word + ' ነበር።')
-
-}
-
-const toggleSettings = () => alert('ቅንብሮች የለም')
+const toggleSettings = () => window.location.replace('../menu.html')
 
 const toggleStats = () => {
 

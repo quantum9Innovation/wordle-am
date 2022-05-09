@@ -920,7 +920,7 @@ const alertReveal = () => {
 
 }
 
-const toggleSettings = () => alert('ቅንብሮች የለም')
+const toggleSettings = () => window.location.replace('/menu.html')
 
 const toggleStats = () => {
 

@@ -112,7 +112,7 @@ let makeHeader = () => {
     settingsButton.className = 'header-button'
     settingsButton.setAttribute('onclick', 'toggleSettings()')
     settingsButton.innerHTML = 
-    '<img src="../Icons/settings.svg" class="header-icon" alt="settings">'
+    '<img src="../Icons/menu.svg" class="header-icon" alt="menu">'
 
     let helpButton = document.createElement('a')
     helpButton.id = 'help-button'
