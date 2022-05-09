@@ -149,7 +149,7 @@ let makeGrid = () => {
     for (let i = 0; i < 6; i++) {
 
         let word = document.createElement('div')
-        for (let j = 0; j < 5; j++) {
+        for (let j = 0; j < 4; j++) {
 
             let box = document.createElement('div')
             box.className = 'box ' + (j + 1)

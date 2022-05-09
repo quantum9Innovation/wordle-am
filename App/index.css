@@ -173,6 +173,10 @@ button {
   padding: 0px;
 }
 
+.header-button:hover {
+  cursor: pointer;
+}
+
 #stats-button {
   margin-left: 3vh;
 }
@@ -443,6 +447,7 @@ button {
 
 .key:hover {
   background-color: var(--tone2);
+  cursor: pointer;
 }
 
 .key.gray {
@@ -591,6 +596,7 @@ button {
 
 .carousel-letter:hover {
   color: var(--select);
+  cursor: pointer;
 }
 
 .carousel-letter.gray:hover,
