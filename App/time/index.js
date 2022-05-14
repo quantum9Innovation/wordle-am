@@ -425,7 +425,7 @@ const hideHeader = () => {
 const celebrate = () => {
 
     let modal = document.getElementById('modal')
-    modal.classList.toggle('show')
+    modal.classList.add('show')
 
     let modalContent = document.getElementById('modal-content')
     modalContent.innerText = nwords + '!'
@@ -436,7 +436,7 @@ const celebrate = () => {
 }
 
 const endCelebration = interval => {
-
+    
     clearInterval(interval)
     let modal = document.getElementById('modal')
     modal.classList.remove('show')
@@ -601,7 +601,13 @@ const logVisit = () => {
     Cookies.set('visited', 'beta.1', { expires: 7 })
     
     let visited = Cookies.get('T/visited')
-    if ( visited ) timeRem = 0
+    if ( visited ) {
+
+        timeRem = 0
+        started = true
+        timekeep()
+    
+    }
 
     Cookies.set('T/visited', 'beta.1', { expires: expire })
 
@@ -1110,7 +1116,6 @@ window.reveal = reveal
 // Startup routine
 window.onload = () => {
 
-    logVisit()
     squish()
 
     let promises = [
@@ -1128,6 +1133,7 @@ window.onload = () => {
             window.location.replace('../waiting.html')
         }
 
+        logVisit()
         makeWord().then( () => {
             
             endLoad()
