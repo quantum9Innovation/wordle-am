@@ -415,6 +415,11 @@ const hideHeader = () => {
         headerIcons[i].classList.add('hide')
     }
 
+    let skipButton = document.getElementById('reveal-button')
+    let skipIcon = skipButton.children[0]
+
+    skipIcon.classList.remove('hide')
+
 }
 
 const celebrate = () => {
