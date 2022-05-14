@@ -992,6 +992,10 @@ const timekeep = () => {
     let timekeeper = document.getElementById('title')
     timekeeper.innerText = min + ':' + sec
 
+    let percentRem = timeRem / 480
+    let bar = document.getElementById('progress-bar')
+    bar.style.width = 100 * percentRem + '%'
+
 }
 
 

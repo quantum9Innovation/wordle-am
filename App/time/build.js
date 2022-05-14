@@ -141,6 +141,19 @@ let makeHeader = () => {
 
 }
 
+let makeProgress = () => {
+    
+    let progress = document.createElement('div')
+    progress.id = 'progress'
+    
+    let bar = document.createElement('div')
+    bar.id = 'progress-bar'
+    progress.appendChild(bar)
+
+    document.body.appendChild(progress)
+
+}
+
 let makeGrid = () => {
 
     let content = document.createElement('div')
@@ -272,6 +285,7 @@ let makeModal = () => {
 }
 
 makeHeader()
+makeProgress()
 makeGrid()
 makeKeyboard()
 makeModal()
