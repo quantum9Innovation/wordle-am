@@ -64,6 +64,14 @@ let timerCounter = 10
 let timerInterval
 let content = document.getElementById('content')
 let square = [1, 1]
+let newWord = false
+let nwords = 0
+let skipped = 0
+
+// Timing
+let started = false
+let timeRem = 480
+let selfInterval
 
 
 // Timezones
@@ -400,13 +408,27 @@ const updateTimer = () => {
 
 }
 
+const hideHeader = () => {
+
+    let headerIcons = document.getElementsByClassName('header-icon')
+    for ( let i = 0; i < headerIcons.length; i++ ) {
+        headerIcons[i].classList.add('hide')
+    }
+
+    let skipButton = document.getElementById('reveal-button')
+    let skipIcon = skipButton.children[0]
+
+    skipIcon.classList.remove('hide')
+
+}
+
 const celebrate = () => {
 
     let modal = document.getElementById('modal')
-    modal.classList.toggle('show')
+    modal.classList.add('show')
 
     let modalContent = document.getElementById('modal-content')
-    modalContent.innerText = square[0] + '!'
+    modalContent.innerText = nwords + '!'
 
     updateTimer()
     timerInterval = setInterval(updateTimer, 1000)
@@ -414,7 +436,7 @@ const celebrate = () => {
 }
 
 const endCelebration = interval => {
-
+    
     clearInterval(interval)
     let modal = document.getElementById('modal')
     modal.classList.remove('show')
@@ -576,48 +598,30 @@ const expireeDate = () => {
 }
 const logVisit = () => { 
     
-    let set = () => Cookies.set('visited', 'beta.1', { expires: 7 })
-    let visit = Cookies.get('visited')
-
-    if ( !visit ) { 
-        set(); return
-    } else if ( visit != 'beta.1' ) Object.keys(Cookies.get()).forEach(
-        
-        (cookieName) => {
-
-            var neededAttributes = {}
-            Cookies.remove(cookieName, neededAttributes)
-            set()
-
-        }
-        
-    )
-
-}
-const logWord = () => { 
-
-    let word = []
-    for ( let i = 0; i < 4; i++ ) {
-
-        let box = document.getElementById(square[0] + '-' + (i + 1))
-        word.push(box.innerText)
-
-    }
+    Cookies.set('visited', 'beta.1', { expires: 7 })
     
-    word = word.join('')
-    Cookies.set('4/word' + square[0], word, { expires: expire })
+    let visited = Cookies.get('T/visited')
+    if ( visited ) {
+
+        timeRem = 0
+        started = true
+        timekeep()
+    
+    }
+
+    Cookies.set('T/visited', 'beta.1', { expires: expire })
 
 }
 const logWin = () => { 
 
     let period = expire
-    Cookies.set('4/win', square[0], { expires: period })
+    Cookies.set('T/win', nwords, { expires: period })
     
     const Y = period.getFullYear()
     const M = period.getMonth() + 1
     const D = period.getDate()
 
-    Cookies.set('4/win-' + M + '/' + D + '/' + Y, square[0], { expires: 365 })
+    Cookies.set('T/win-' + M + '/' + D + '/' + Y, nwords, { expires: 365 })
 
 }
 const getWords = () => {
@@ -626,7 +630,7 @@ const getWords = () => {
 
     let words = []
     while ( words[words.length - 1] != null || words.length == 0 ) {
-        words.push(Cookies.get('4/word' + (words.length + 1)))
+        words.push(Cookies.get('T/word' + (words.length + 1)))
     }
 
     words.splice(words.length - 1, 1)
@@ -641,7 +645,7 @@ const getWins = () => {
     let wins = []
 
     for ( let cookie in cookies ) {
-        if ( cookie.startsWith('4/win-') ) wins.push(cookies[cookie])
+        if ( cookie.startsWith('T/win-') ) wins.push(cookies[cookie])
     }
 
     return wins.map(Number)
@@ -652,8 +656,59 @@ const getWins = () => {
 // Core funcs
 const makeWord = async () => {
 
+    // Clear all prev data
+    square = [1, 1]
+    let content = document.getElementById('content')
+    let words = content.children
+
+    for ( let i = 0; i < words.length; i++ ) {
+
+        let word = words[i]
+        let boxes = word.children
+
+        for ( let j = 0; j < boxes.length; j++ ) {
+
+            let box = boxes[j]
+            box.className = 'box ' + (j + 1)
+            box.innerHTML = ''
+
+        }
+
+    }
+
+    paint(square)
+
+    // Repaint keyboard
+    let keyboard = document.getElementById('keyboard')
+    let rows = keyboard.children
+
+    for ( let i = 0; i < rows.length; i++ ) {
+
+        let row = rows[i]
+        let keys = row.children
+
+        for ( let j = 0; j < keys.length; j++ ) {
+
+            let key = keys[j]
+            if (i == 1 && (j == 0 || j == 11)) continue
+            key.className = 'key'
+            
+            let carousel = document.getElementById(`c-${i+1}-${j+1}`)
+            let boxes = carousel.children
+
+            for ( let k = 0; k < boxes.length; k++ ) {
+
+                let box = boxes[k]
+                box.className = 'carousel-letter'
+
+            }
+
+        }
+
+    }
+
     // Generate seeded entropy
-    const seed = expire.toDateString()
+    const seed = expire.toDateString() + (nwords + skipped)
     const hash = new TextEncoder().encode(seed)
     const digest = await crypto.subtle.digest('SHA-256', hash)
     const digestArray = Array.from(new Uint8Array(digest))
@@ -699,6 +754,7 @@ const makeWord = async () => {
     // Generate word
     let index = random * answers.length
     word = answers[Math.floor(index)]
+    newWord = true
 
 }
 
@@ -825,6 +881,13 @@ const isValid = () => {
 
 const type = letter => {
 
+    if (!started) {
+        
+        started = true
+        hideHeader()
+
+    }
+
     let box = document.getElementById(square[0] + '-' + square[1])
     box.innerText = letter
     
@@ -865,6 +928,7 @@ const backspace = () => {
 const enter = () => {
 
     if ( !isValid() ) return
+    if ( !newWord ) return
     
     let resultant = crossCheck()
     paintLetters(resultant)
@@ -888,20 +952,22 @@ const enter = () => {
 
     }
 
-    if ( 
-        JSON.stringify(resultant) == '[1,1,1,1]'
-        && Cookies.get('4/reveal') != 'true'
-    ) {
+    if (JSON.stringify(resultant) == '[1,1,1,1]') {
 
-        logWord(); logWin()
-        celebrate()
-        launchConfetti()
-        launchFireworks()
+        window.setTimeout(
+            () => {
+                nwords++
+                newWord = false
+                makeWord()
+            }, 
+            1000
+        )
+
+        paint(square)
         return
 
     }
 
-    logWord()
     paint(square)
     square[0]++
     if ( square[0] > 5 ) createNextBlock()
@@ -912,14 +978,39 @@ const enter = () => {
 }
 
 
-// Menu funcs
-const alertReveal = () => {
+// Timing
+const timekeep = () => {
 
-    Cookies.set('4/reveal', 'true', { expires: expire })
-    alert(word)
+    if ( !started ) return
+    if ( timeRem <= 0 ) {
+
+        logWin()
+        celebrate()
+        launchConfetti()
+        launchFireworks()
+        
+        clearInterval(selfInterval)
+        return
+
+    }
+
+    timeRem--
+
+    let min = Math.floor(timeRem / 60)
+    let sec = timeRem % 60
+    if ( sec < 10 ) sec = '0' + sec
+
+    let timekeeper = document.getElementById('title')
+    timekeeper.innerText = min + ':' + sec
+
+    let percentRem = timeRem / 480
+    let bar = document.getElementById('progress-bar')
+    bar.style.width = 100 * percentRem + '%'
 
 }
 
+
+// Menu funcs
 const toggleSettings = () => window.location.replace('../menu.html')
 
 const toggleStats = () => {
@@ -978,8 +1069,22 @@ const toggleStats = () => {
 
 const reveal = () => {
 
-    let revealModal = document.getElementById('reveal-modal')
-    revealModal.classList.toggle('show')
+    let skipModal = document.getElementById('skip-modal-content')
+    skipModal.classList.remove('hide')
+    skipModal.classList.add('show')
+    skipModal.innerText = word
+
+    skipped++
+
+    window.setTimeout(() => {
+
+        skipModal.classList.remove('show')
+        skipModal.classList.add('hide')    
+    
+    }, 3000)
+
+    newWord = false
+    makeWord()
 
 }
 
@@ -994,8 +1099,6 @@ const restoreSession = () => {
 
     }
 
-    if ( Cookies.get('4/reveal') == 'true' ) alertReveal()
-
 }
 
 
@@ -1009,13 +1112,10 @@ window.enter = enter
 window.toggleStats = toggleStats
 window.toggleSettings = toggleSettings
 window.reveal = reveal
-window.alertReveal = alertReveal
 
 // Startup routine
 window.onload = () => {
 
-    logVisit()
-    paint(square)
     squish()
 
     let promises = [
@@ -1033,10 +1133,14 @@ window.onload = () => {
             window.location.replace('../waiting.html')
         }
 
+        logVisit()
         makeWord().then( () => {
             
             endLoad()
             restoreSession()
+
+            selfInterval = window.setInterval(timekeep, 1000)
+
             if (navigator.serviceWorker != 'undefined') {
                 navigator.serviceWorker.register('../app.js')
             }
