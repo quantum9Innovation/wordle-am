@@ -904,7 +904,7 @@ const enter = () => {
     logWord()
     paint(square)
     square[0]++
-    if ( square[0] > 4 ) createNextBlock()
+    if ( square[0] > 5 ) createNextBlock()
 
     square[1] = 1
     paint(square)
