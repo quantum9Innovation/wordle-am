@@ -598,8 +598,15 @@ const expireeDate = () => {
 }
 const logVisit = () => { 
     
-    Cookies.set('visited', 'beta.1', { expires: 7 })
+    // Log visit
+    let set = () => Cookies.set('visited', 'beta.2', { expires: 7 })
+    let visit = Cookies.get('visited')
+
+    if ( !visit ) set()
+    else if ( visit != 'beta.2' ) set()
     
+    
+    // Site visit
     let visited = Cookies.get('T/visited')
     if ( visited ) {
 
@@ -609,7 +616,8 @@ const logVisit = () => {
     
     }
 
-    Cookies.set('T/visited', 'beta.1', { expires: expire })
+    let today = new Date()
+    Cookies.set('T/visited', today.toDateString(), { expires: expire })
 
 }
 const logWin = () => { 
