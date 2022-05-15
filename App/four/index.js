@@ -7,11 +7,16 @@ import Cookies from '../Modules/js.cookie.min.mjs'
 
 // Constants
 let word = ''
+
 let lastUpdate = new Date()
 let expire = new Date()
+let waiting = false
+
 let dictionary = []
+
 const updateURL = '../Data/update.txt'
-const dictionaryURL = '../Data/dictionary.txt'
+const dictionaryURL = '../Data/dictionary4.txt'
+
 const fidal = [
     ['ሀ', 'ሁ', 'ሂ', 'ሃ', 'ሄ', 'ህ', 'ሆ'],
     ['ለ', 'ሉ', 'ሊ', 'ላ', 'ሌ', 'ል', 'ሎ', 'ሏ'],
@@ -61,7 +66,60 @@ let content = document.getElementById('content')
 let square = [1, 1]
 
 
+// Timezones
+
+// local -> UTC
+const toUTC = date => {
+
+    let now = new Date()
+    return new Date(
+        date.getTime() + now.getTimezoneOffset() * 60 * 1000
+    )
+
+}
+
+// local -> EAT
+const toEAT = date => {
+
+    let utc = toUTC(date)
+    return new Date(
+        utc.getTime() + 3 * 60 * 60 * 1000
+    )
+
+}
+
+// EAT -> local
+const toLocal = date => {
+
+    let now = new Date()
+    return new Date(
+        date.getTime() - (now.getTimezoneOffset() + 3 * 60) * 60 * 1000
+    )
+
+}
+
+
 // Helper funcs
+const squish = () => {
+    
+    const rootElement = document.querySelector(":root")
+    const viewportHeight = rootElement.getBoundingClientRect().height
+    const windowHeight = window.innerHeight
+    const blockingHeight = viewportHeight - windowHeight
+    rootElement.style.height = `calc(100vh - ${blockingHeight}px)`
+    
+    let height = rootElement.style.height
+    let vh = height / 100
+    let keyboard = document.getElementById('keyboard')
+    let content = document.getElementById('content')
+
+    let maxHeight = 75 * vh
+    let clearance = content.offsetTop + content.clientHeight
+
+    if (maxHeight > clearance) keyboard.style.top = `${maxHeight}px`
+
+}
+
 const paint = sq => {
     
     let box = document.getElementById(sq[0] + '-' + sq[1])
@@ -163,7 +221,7 @@ const getLetterStatus = letter => {
     let template = word.split('')
 
     // First pass - check for exact matches
-    for ( let i = 0; i < 5; i++ ) {
+    for ( let i = 0; i < 4; i++ ) {
         if ( letter == template[i] ) return 1
     }
 
@@ -174,7 +232,7 @@ const getLetterStatus = letter => {
     let template_family = []
     let letter_family = ''
 
-    for ( let i = 0; i < 5; i++ ) {
+    for ( let i = 0; i < 4; i++ ) {
 
         for ( let k = 0; k < fidal.length; k++ ) {
                 
@@ -188,7 +246,7 @@ const getLetterStatus = letter => {
     }
 
     // Check for matches
-    for ( let i = 0; i < 5; i++ ) {
+    for ( let i = 0; i < 4; i++ ) {
         if ( letter_family == template_family[i] ) return 2
     }
 
@@ -205,7 +263,7 @@ const paintLetters = res => {
     let colorZones = []
 
     let split_word = []
-    for ( let i = 0; i < 5; i++ ) {
+    for ( let i = 0; i < 4; i++ ) {
 
         let box = document.getElementById(square[0] + '-' + (i + 1))
         split_word.push(box.innerText)
@@ -213,7 +271,7 @@ const paintLetters = res => {
     }
 
     // Gray
-    for ( let i = 0; i < 5; i++ ) {
+    for ( let i = 0; i < 4; i++ ) {
 
         if ( res[i] == 0 && getLetterStatus(split_word[i]) == 0 ) { 
 
@@ -225,7 +283,7 @@ const paintLetters = res => {
     }
 
     // Blue
-    for ( let i = 0; i < 5; i++ ) {
+    for ( let i = 0; i < 4; i++ ) {
 
         if ( res[i] == 4 && getLetterStatus(split_word[i]) == 2 ) { 
 
@@ -237,7 +295,7 @@ const paintLetters = res => {
     }
 
     // Yellow
-    for ( let i = 0; i < 5; i++ ) {
+    for ( let i = 0; i < 4; i++ ) {
 
         if ( res[i] == 3 && getLetterStatus(split_word[i]) == 1 ) { 
 
@@ -249,7 +307,7 @@ const paintLetters = res => {
     }
 
     // Pink
-    for ( let i = 0; i < 5; i++ ) {
+    for ( let i = 0; i < 4; i++ ) {
 
         if ( res[i] == 2 && getLetterStatus(split_word[i]) == 2 ) { 
 
@@ -261,7 +319,7 @@ const paintLetters = res => {
     }
 
     // Green
-    for ( let i = 0; i < 5; i++ ) {
+    for ( let i = 0; i < 4; i++ ) {
 
         if ( res[i] == 1 && getLetterStatus(split_word[i]) == 1 ) { 
 
@@ -302,7 +360,7 @@ const createNextBlock = () => {
 
     let word = document.createElement('div')
     let i = square[0]
-    for (let j = 0; j < 5; j++) {
+    for (let j = 0; j < 4; j++) {
 
         let box = document.createElement('div')
         box.className = 'box ' + (j + 1)
@@ -457,6 +515,8 @@ const loadUpdate = async URL => {
     let date = text.split('\n')[0].split('/')
     
     lastUpdate = new Date(date[2], date[0] - 1, date[1])
+    lastUpdate.setHours(0, 0, 0, 0)
+    lastUpdate = toLocal(lastUpdate)
 
 }
 
@@ -474,7 +534,7 @@ const findInDictionary = word => {
     
     let minBound = 0
     let maxBound = dictionary.length - 1
-
+  
     while (minBound <= maxBound) {
 
         let mid = Math.floor((minBound + maxBound) / 2)
@@ -495,39 +555,38 @@ const findInDictionary = word => {
 const expireeDate = () => {
 
     let today = new Date()
-    let todayEAT = new Date(
-        today.getTime() + (today.getTimezoneOffset() + 180) * 60000
-    )
 
-    let expireEAT = new Date(todayEAT.getTime())
+    let expireEAT = toEAT(today)
     expireEAT.setHours(0, 0, 0, 0)
     expireEAT.setDate(expireEAT.getDate() + 1)
 
-    let expire = new Date(
-        expireEAT.getTime() - (today.getTimezoneOffset() + 180) * 60000
-    )
+    let expire = toLocal(expireEAT)
     let e_expire = lastUpdate
     e_expire.setDate(e_expire.getDate() + 1)
-    e_expire = new Date(
-        e_expire.getTime() - (today.getTimezoneOffset() + 180) * 60000
-    )
 
     if ( expire.getTime() != e_expire.getTime() ) {
         
         let diff = Date.now() - e_expire
-        let safeExpire = new Date(e_expire.getTime() + 30 * 60 * 1000)
-        if ( diff < 30 * 60 * 1000 ) return safeExpire
+        if ( diff < 30 * 60 * 1000 ) { waiting = true; return e_expire }
 
     }
 
     return expire
 
 }
-const logVisit = () => Cookies.set('visited', 'alpha', { expires: 7 })
+const logVisit = () => { 
+    
+    let set = () => Cookies.set('visited', 'beta.2', { expires: 7 })
+    let visit = Cookies.get('visited')
+
+    if ( !visit ) set()
+    else if ( visit != 'beta.2' ) set()
+
+}
 const logWord = () => { 
 
     let word = []
-    for ( let i = 0; i < 5; i++ ) {
+    for ( let i = 0; i < 4; i++ ) {
 
         let box = document.getElementById(square[0] + '-' + (i + 1))
         word.push(box.innerText)
@@ -535,20 +594,19 @@ const logWord = () => {
     }
     
     word = word.join('')
-    // Cookies.set('word' + square[0], word, { expires: expire })
+    Cookies.set('4/word' + square[0], word, { expires: expire })
 
 }
 const logWin = () => { 
 
     let period = expire
-    // Cookies.set('win', square[0], { expires: period })
+    Cookies.set('4/win', square[0], { expires: period })
     
-    const today = new Date()
-    const Y = today.getFullYear()
-    const M = today.getMonth() + 1
-    const D = today.getDate()
+    const Y = period.getFullYear()
+    const M = period.getMonth() + 1
+    const D = period.getDate()
 
-    // Cookies.set('win-' + M + '/' + D + '/' + Y, square[0], { expires: 365 })
+    Cookies.set('4/win-' + M + '/' + D + '/' + Y, square[0], { expires: 365 })
 
 }
 const getWords = () => {
@@ -557,7 +615,7 @@ const getWords = () => {
 
     let words = []
     while ( words[words.length - 1] != null || words.length == 0 ) {
-        // words.push(Cookies.get('word' + (words.length + 1)))
+        words.push(Cookies.get('4/word' + (words.length + 1)))
     }
 
     words.splice(words.length - 1, 1)
@@ -572,7 +630,7 @@ const getWins = () => {
     let wins = []
 
     for ( let cookie in cookies ) {
-        if ( cookie.startsWith('win-') ) wins.push(cookies[cookie])
+        if ( cookie.startsWith('4/win-') ) wins.push(cookies[cookie])
     }
 
     return wins.map(Number)
@@ -583,24 +641,63 @@ const getWins = () => {
 // Core funcs
 const makeWord = async () => {
 
+    // Generate seeded entropy
+    const seed = expire.toDateString()
+    const hash = new TextEncoder().encode(seed)
+    const digest = await crypto.subtle.digest('SHA-256', hash)
+    const digestArray = Array.from(new Uint8Array(digest))
+    const digestBin = digestArray.reduce(
+        (str, byte) => str + byte.toString(2).padStart(8, '0'), 
+        ''
+    )
+    
+
+    // XOR entropy with cryptographic salt
+
+    // Fetch salts
+    let response = await fetch('../Data/salt.txt')
+    let salt = await response.text()
+    salt = salt.split('\n')[0]
+
+    // XOR
+    let xor = ''
+    for ( let i = 0; i < digestBin.length; i++ ) {
+        salt[i] != digestBin[i] ? xor += '1' : xor += '0'
+    }
+
+
+    // Generate word
+
     // Load resources
-    let response = await fetch('../Data/answers.txt')
+    response = await fetch('../Data/answers4.txt')
     let text = await response.text()
     let answers = text.split('\n')
 
+    // PRNG
+    let random
+    let minRandom = 0
+    let maxRandom = 1
+
+    for ( let i = 0; i < xor.length; i++ ) {
+        
+        random = (minRandom + maxRandom) / 2
+        xor[i] == 1 ? minRandom = random : maxRandom = random
+
+    }
+
     // Generate word
-    let index = Math.random() * answers.length
+    let index = random * answers.length
     word = answers[Math.floor(index)]
 
 }
 
 const crossCheck = () => {
 
-    let resultant = [0, 0, 0, 0, 0]
+    let resultant = [0, 0, 0, 0]
     let template = word.split('')
     
     let matrix = []
-    for ( let i = 0; i < 5; i++ ) {
+    for ( let i = 0; i < 4; i++ ) {
         
         let box = document.getElementById(square[0] + '-' + (i + 1))
         matrix.push(box.innerText)
@@ -609,7 +706,7 @@ const crossCheck = () => {
 
 
     // First pass - check for exact matches
-    for ( let i = 0; i < 5; i++ ) {
+    for ( let i = 0; i < 4; i++ ) {
 
         if ( matrix[i] == template[i] ) {
 
@@ -627,7 +724,7 @@ const crossCheck = () => {
     let template_family = []
     let word_family = []
 
-    for ( let i = 0; i < 5; i++ ) {
+    for ( let i = 0; i < 4; i++ ) {
 
         if ( resultant[i] != 0 ) {
             template_family.push('')
@@ -645,7 +742,7 @@ const crossCheck = () => {
     }
 
     // Check for matches
-    for ( let i = 0; i < 5; i++ ) {
+    for ( let i = 0; i < 4; i++ ) {
 
         if (resultant[i] != 0) continue
         if ( word_family[i] == template_family[i] ) {
@@ -660,10 +757,10 @@ const crossCheck = () => {
 
 
     // Third pass - check for partial matches
-    for ( let i = 0; i < 5; i++ ) {
+    for ( let i = 0; i < 4; i++ ) {
 
         if ( resultant[i] != 0 ) continue
-        for ( let j = 0; j < 5; j++ ) {
+        for ( let j = 0; j < 4; j++ ) {
 
             if ( matrix[i] == template[j] ) {
 
@@ -679,10 +776,10 @@ const crossCheck = () => {
 
 
     // Fourth pass - check for partial family matches
-    for ( let i = 0; i < 5; i++ ) {
+    for ( let i = 0; i < 4; i++ ) {
 
         if ( resultant[i] != 0 ) continue
-        for ( let j = 0; j < 5; j++ ) {
+        for ( let j = 0; j < 4; j++ ) {
 
             if ( word_family[i] == template_family[j] ) {
 
@@ -703,7 +800,7 @@ const crossCheck = () => {
 const isValid = () => {
 
     let word = []
-    for ( let i = 0; i < 5; i++ ) {
+    for ( let i = 0; i < 4; i++ ) {
         
         let box = document.getElementById(square[0] + '-' + (i + 1))
         word.push(box.innerText)
@@ -720,9 +817,9 @@ const type = letter => {
     let box = document.getElementById(square[0] + '-' + square[1])
     box.innerText = letter
     
-    if ( square[1] == 5 && !isValid() ) paintIncorrect()
+    if ( square[1] == 4 && !isValid() ) paintIncorrect()
 
-    if ( square[1] < 5 ) {
+    if ( square[1] < 4 ) {
         paint(square)
         square[1]++
         paint(square)
@@ -761,7 +858,7 @@ const enter = () => {
     let resultant = crossCheck()
     paintLetters(resultant)
 
-    for ( let i = 0; i < 5; i++ ) {
+    for ( let i = 0; i < 4; i++ ) {
 
         let className = ''
         switch (resultant[i]) {
@@ -781,7 +878,8 @@ const enter = () => {
     }
 
     if ( 
-        JSON.stringify(resultant) == '[1,1,1,1,1]'
+        JSON.stringify(resultant) == '[1,1,1,1]'
+        && Cookies.get('4/reveal') != 'true'
     ) {
 
         logWord(); logWin()
@@ -804,7 +902,12 @@ const enter = () => {
 
 
 // Menu funcs
-const alertReveal = () => alert(word)
+const alertReveal = () => {
+
+    Cookies.set('4/reveal', 'true', { expires: expire })
+    alert(word)
+
+}
 
 const toggleSettings = () => window.location.replace('../menu.html')
 
@@ -875,12 +978,12 @@ const restoreSession = () => {
     for ( let i = 0; i < words.length; i++ ) {
 
         let word = words[i].split('')
-        for ( let j = 0; j < 5; j++ ) type(word[j])
+        for ( let j = 0; j < 4; j++ ) type(word[j])
         enter()
 
     }
 
-    // if ( Cookies.get('reveal') == 'true' ) alertReveal()
+    if ( Cookies.get('4/reveal') == 'true' ) alertReveal()
 
 }
 
@@ -902,6 +1005,7 @@ window.onload = () => {
 
     logVisit()
     paint(square)
+    squish()
 
     let promises = [
         loadDictionary(dictionaryURL), 
@@ -911,16 +1015,20 @@ window.onload = () => {
         promises.map(
             promise => Promise.resolve(promise).catch( _ => _ ) 
         )
-    ).then ( () => {
-         
+    ).then ( () => { 
+
         expire = expireeDate()
+        if (waiting) {
+            window.location.replace('../waiting.html')
+        }
+
         makeWord().then( () => {
             
             endLoad()
-            // restoreSession()
-            // if (navigator.serviceWorker != 'undefined') {
-            //     navigator.serviceWorker.register('./app.js')
-            // }
+            restoreSession()
+            if (navigator.serviceWorker != 'undefined') {
+                navigator.serviceWorker.register('../app.js')
+            }
 
         } ) 
 
@@ -943,3 +1051,5 @@ document.addEventListener(
     
     }
 )
+
+window.addEventListener('resize', squish) 

@@ -576,22 +576,11 @@ const expireeDate = () => {
 }
 const logVisit = () => { 
     
-    let set = () => Cookies.set('visited', 'beta.1', { expires: 7 })
+    let set = () => Cookies.set('visited', 'beta.2', { expires: 7 })
     let visit = Cookies.get('visited')
 
-    if ( !visit ) { 
-        set(); return
-    } else if ( visit != 'beta.1' ) Object.keys(Cookies.get()).forEach(
-        
-        (cookieName) => {
-
-            var neededAttributes = {}
-            Cookies.remove(cookieName, neededAttributes)
-            set()
-
-        }
-        
-    )
+    if ( !visit ) set()
+    else if ( visit != 'beta.2' ) set()
 
 }
 const logWord = () => { 
@@ -920,7 +909,7 @@ const alertReveal = () => {
 
 }
 
-const toggleSettings = () => alert('ቅንብሮች የለም')
+const toggleSettings = () => window.location.replace('./menu.html')
 
 const toggleStats = () => {
 

@@ -90,9 +90,9 @@ let makeHeader = () => {
     let header = document.createElement('div')
     header.id = 'bar'
 
-    let title = document.createElement('h1')
-    title.id = 'title'
-    title.innerHTML = 'ቃልነት'
+    let timer = document.createElement('h1')
+    timer.id = 'title'
+    timer.innerHTML = '8:00'
 
     let leftBar = document.createElement('div')
     leftBar.id = 'left-bar'
@@ -121,23 +121,36 @@ let makeHeader = () => {
     helpButton.innerHTML =
     '<img src="../Icons/help.svg" class="header-icon" alt="help">'
 
-    let revealButton = document.createElement('button')
-    revealButton.id = 'reveal-button'
-    revealButton.className = 'header-button'
-    revealButton.setAttribute('onclick', 'reveal()')
-    revealButton.innerHTML =
-    '<img src="../Icons/reveal.svg" class="header-icon" alt="reveal">'
+    let skipButton = document.createElement('button')
+    skipButton.id = 'reveal-button'
+    skipButton.className = 'header-button'
+    skipButton.setAttribute('onclick', 'reveal()')
+    skipButton.innerHTML =
+    '<img src="../Icons/skip.svg" class="header-icon" alt="skip">'
 
     rightBar.appendChild(statsButton)
     rightBar.appendChild(settingsButton)
 
     leftBar.appendChild(helpButton)
-    leftBar.appendChild(revealButton)
+    leftBar.appendChild(skipButton)
 
     header.appendChild(leftBar)
     header.appendChild(rightBar)
-    header.appendChild(title)
+    header.appendChild(timer)
     document.body.appendChild(header)
+
+}
+
+let makeProgress = () => {
+    
+    let progress = document.createElement('div')
+    progress.id = 'progress'
+    
+    let bar = document.createElement('div')
+    bar.id = 'progress-bar'
+    progress.appendChild(bar)
+
+    document.body.appendChild(progress)
 
 }
 
@@ -149,7 +162,7 @@ let makeGrid = () => {
     for (let i = 0; i < 6; i++) {
 
         let word = document.createElement('div')
-        for (let j = 0; j < 5; j++) {
+        for (let j = 0; j < 4; j++) {
 
             let box = document.createElement('div')
             box.className = 'box ' + (j + 1)
@@ -264,18 +277,15 @@ let makeModal = () => {
     document.body.appendChild(statsModal)
 
     // Make reveal modal
-    let revealModal = document.createElement('div')
-    revealModal.id = 'reveal-modal'
-    revealModal.innerHTML =
-    '<div id="reveal-modal-content">'
-    + '<div id="reveal-modal-title">ቃል አሳይ?</div>'
-    + '<button id="reveal-form" onclick="alertReveal()">አዎን</button>'
-    + '</div>'
-    document.body.appendChild(revealModal)
+    let skipModal = document.createElement('div')
+    skipModal.id = 'skip-modal'
+    skipModal.innerHTML = '<div id="skip-modal-content" class="hide">WORD</div>'
+    document.body.appendChild(skipModal)
     
 }
 
 makeHeader()
+makeProgress()
 makeGrid()
 makeKeyboard()
 makeModal()
