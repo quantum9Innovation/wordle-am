@@ -920,7 +920,7 @@ const alertReveal = () => {
 
 }
 
-const toggleSettings = () => window.location.replace('/menu.html')
+const toggleSettings = () => window.location.replace('./menu.html')
 
 const toggleStats = () => {
 

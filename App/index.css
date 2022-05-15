@@ -5,10 +5,15 @@
 :root {
   /* Colors */
   --gray: #787c7e;
+  --gray-light: #abb;
   --green: #6aaa64;
+  --green-light: #a1d6a1;
   --yellow: #c9b458;
+  --yellow-light: #e0c9a0;
   --pink: #ff0f9b;
+  --pink-light: #ffa0d7;
   --blue: #59c2ff;
+  --blue-light: #a0d9ff;
   --red: #ff5b5b;
   --select: #0066ff;
   --theme: #588f3f;
@@ -475,12 +480,24 @@ button {
   background-color: var(--blue);
 }
 
-.key.gray:hover,
-.key.green:hover,
-.key.yellow:hover,
-.key.pink:hover,
-.key.blue:hover {
-  filter: brightness(1.35);
+.gray:hover:not(.box) {
+  background-color: var(--gray-light);
+}
+
+.green:hover:not(.box) {
+  background-color: var(--green-light);
+}
+
+.yellow:hover:not(.box) {
+  background-color: var(--yellow-light);
+}
+
+.pink:hover:not(.box) {
+  background-color: var(--pink-light);
+}
+
+.blue:hover:not(.box) {
+  background-color: var(--blue-light);
 }
 
 .icon-container {
@@ -569,27 +586,27 @@ button {
   border-radius: 0.5vh;
 }
 
-.carousel-letter.gray {
+.carousel-letter.gray:not(:hover) {
   background-color: var(--gray);
   color: white;
 }
 
-.carousel-letter.green {
+.carousel-letter.green:not(:hover) {
   background-color: var(--green);
   color: white;
 }
 
-.carousel-letter.yellow {
+.carousel-letter.yellow:not(:hover) {
   background-color: var(--yellow);
   color: white;
 }
 
-.carousel-letter.pink {
+.carousel-letter.pink:not(:hover) {
   background-color: var(--pink);
   color: white;
 }
 
-.carousel-letter.blue {
+.carousel-letter.blue:not(:hover) {
   background-color: var(--blue);
   color: white;
 }
@@ -605,7 +622,6 @@ button {
 .carousel-letter.pink:hover,
 .carousel-letter.key.blue:hover {
   color: white;
-  opacity: 0.75;
 }
 
 .carousel-letter-first {

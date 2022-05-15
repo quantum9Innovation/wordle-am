@@ -17,8 +17,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="The game of Wordle implemented in Amharic" />
 
+    <link rel="stylesheet" href="../index.css">
     <link rel="stylesheet" href="./index.css">
-    </link>
 
 </head>
 
@@ -27,14 +27,14 @@
     <p>
         <a href="..">← Go back</a>
     </p>
-    <h1>የቃልነት መመሪያዎች</h1>
-    <p>በእንግሊዘኛ</p>
+    <h1 class="ethiopic">የቃልነት መመሪያዎች</h1>
+    <p class="ethiopic subtitle">በእንግሊዘኛ</p>
     <p>
         Guess the hidden word by playing a series of 5 letter words and getting clues.
         The goal is to guess the hidden word in as few guesses as possible.
     </p>
     
-    <div id="1" class="word">
+    <div id="1" class="word ethiopic">
         <div class="box 1 pink" id="1-1">ኢ</div>
         <div class="box 2 gray" id="1-2">ት</div>
         <div class="box 3 blue" id="1-3">ዮ</div>
@@ -45,16 +45,16 @@
     <p>
         Pink means that the position is right and the letter is in the right family.
         However, the letter played is not the <em>exact</em> letter used in the word because it has a different ending vowel
-        (e.g. <em>ኢ</em> instead of <em>እ</em>).
+        (e.g. <em class="ethiopic">ኢ</em> instead of <em class="ethiopic">እ</em>).
     </p>
     <p>Gray means neither the letter nor any letter in its family are part of the word.</p>
     <p>
         Blue means that the position is wrong but the letter is in the right family.
         Like pink, blue tells you that the letter played is not an <em>exact</em> match but belongs to the same letter family
-        (in this case, <em>ዮ</em> is played instead of <em>የ</em>).
+        (in this case, <em class="ethiopic">ዮ</em> is played instead of <em class="ethiopic">የ</em>).
     </p>
     
-    <div id="2" class="word">
+    <div id="2" class="word ethiopic">
         <div class="box 1 green" id="2-1">እ</div>
         <div class="box 2 gray" id="2-2">ህ</div>
         <div class="box 3 gray" id="2-3">ት</div>
@@ -71,7 +71,7 @@
         The only thing that needs to be changed to make them right is their position.
     </p>
     
-    <div id="3" class="word">
+    <div id="3" class="word ethiopic">
         <div class="box 1 green" id="3-1">እ</div>
         <div class="box 2 green" id="3-2">የ</div>
         <div class="box 3 green" id="3-3">ዘ</div>
@@ -84,7 +84,7 @@
         You do <em>not</em> need to use all the clues provided in previous guesses in your next guess.
         In fact, sometimes it can be helpful to ignore some of the clues to try and get more useful clues using other words.
     </p>
-    <p>A new <em>ቃልነት</em> will be released every day at midnight East African Time (EAT/UTC+3).</p>
+    <p>A new <em class="ethiopic">ቃልነት</em> will be released every day at midnight East African Time (EAT/UTC+3).</p>
     <p>Good luck!</p>
 
 </body>
