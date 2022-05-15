@@ -37,7 +37,7 @@ jobs:
 
       - name: Run select script
         run: |
-          python Scripts/select.py ${{ github.events.inputs.salt }} ${{ github.events.inputs.month }} ${{ github.events.inputs.day }} ${{ github.events.inputs.year }}
+          python Scripts/select.py ${{ github.event.inputs.salt }} ${{ github.event.inputs.month }} ${{ github.event.inputs.day }} ${{ github.event.inputs.year }}
 
       - name: Push changes
         run: |
