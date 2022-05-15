@@ -1,0 +1,89 @@
+#title {
+  font-family: Roboto, sans-serif;
+}
+
+#progress {
+  position: absolute;
+  top: 10vh;
+  left: 0px;
+  width: 100%;
+  height: 1vh;
+}
+
+#progress-bar {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 1vh;
+  background: linear-gradient(to right, var(--theme) 0%, #4eb552 50%, var(--theme) 100%);
+  background-size: 200% 200%;
+  animation: flash 1s infinite;
+}
+
+#skip-modal-content {
+  position: absolute;
+  top: 10vh;
+  left: 0px;
+  width: 100vw;
+  height: 6vh;
+  line-height: 6vh;
+  font-size: 4vh;
+  font-weight: bold;
+  font-family: Roboto, sans-serif;
+  text-align: center;
+  background-color: black;
+  color: white;
+}
+
+#skip-modal-content.show {
+  visibility: visible;
+  animation: appear 1s;
+}
+
+#skip-modal-content.hide {
+  visibility: hidden;
+  animation: disappear 1s;
+}
+
+.header-icon.hide {
+  visibility: hidden;
+}
+
+@keyframes flash {
+  0% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: -100% 0%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
+}
+
+@keyframes appear {
+  from {
+    height: 0px;
+    line-height: 0px;
+    font-size: 0px;
+  }
+  to {
+    height: 6vh;
+    line-height: 6vh;
+    font-size: 4vh;
+  }
+}
+
+@keyframes disappear {
+  from {
+    height: 6vh;
+    line-height: 6vh;
+    font-size: 4vh;
+  }
+  to {
+    height: 0px;
+    line-height: 0px;
+    font-size: 0px;
+  }
+}
