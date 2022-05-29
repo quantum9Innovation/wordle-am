@@ -18,7 +18,7 @@ let client = new faunadb.Client({
 const log = async obj => {
 
     let create = client.query(
-        q.Create(q.Collection('analytics'), obj)
+        q.Create(q.Collection('analytics'), { data: obj })
     ).catch(e => { 
 
         console.log(e)
