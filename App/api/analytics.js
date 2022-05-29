@@ -14,27 +14,6 @@ let client = new faunadb.Client({
 })
 
 
-// Helper funcs
-const toUTC = date => {
-
-    let now = new Date()
-    return new Date(
-        date.getTime() + now.getTimezoneOffset() * 60 * 1000
-    )
-
-}
-
-const toEAT = date => {
-    // local -> EAT
-    
-    let utc = toUTC(date)
-    return new Date(
-        utc.getTime() + 3 * 60 * 60 * 1000
-    )
-
-}
-
-
 // Log data
 const log = async obj => {
 
@@ -58,11 +37,8 @@ const log = async obj => {
 module.exports = async (req, res) => {
 
     // Parse the request
-    console.log(req.headers)
-    console.log(req.method)
-    console.log(req.body)
     let method = req.method
-    let data = JSON.parse(req.body)
+    let body = JSON.parse(req.body)
 
     if (method != 'POST') res.status(405).send('Method not allowed: ' + method)
 
@@ -74,12 +50,19 @@ module.exports = async (req, res) => {
         const ua = req.headers['user-agent']
         const ul = req.headers['accept-language']
         const dnt = req.headers['dnt']
+        const meta = { ip, ua, ul, referer }
 
-        let now = new Date()
-        now = toEAT(now)
-        now = now.toDateString()
+        // Respect 'Do Not Track'
+        // if (dnt == '1') return res.status(200).send('OK')
 
-        info = { ip, ua, ul, dnt, referer, data, dt: now } // as a json5 object
+        // Region info
+        const country = req.headers['x-vercel-ip-country']
+        const region = req.headers['x-vercel-ip-country-region']
+        const city = req.headers['x-vercel-ip-city']
+        const loc = { city, region, country }
+
+        // Compile database entry
+        info = { body, meta, loc }
 
         // Log data
         let output = await log(info)
