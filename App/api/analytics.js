@@ -61,6 +61,9 @@ const log = async obj => {
 module.exports = async (req, res) => {
 
     // Parse the request
+    console.log(req.headers)
+    console.log(Object.keys(req))
+    console.log(parse(req))
     let { request } = parse(req)
     let method = request.method
     let data = JSON.parse(request.body)
