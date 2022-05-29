@@ -599,6 +599,8 @@ const logWord = () => {
 }
 const logWin = () => { 
 
+    if (Cookies.get('win')) return
+
     let period = expire
     Cookies.set('win', square[0], { expires: period })
     

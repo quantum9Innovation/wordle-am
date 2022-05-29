@@ -550,6 +550,15 @@ const logWin = () => {
 
     // Cookies.set('win-' + M + '/' + D + '/' + Y, square[0], { expires: 365 })
 
+    let xhttp = new XMLHttpRequest()
+    xhttp.open('POST', '../api/analytics', true)
+    xhttp.send(JSON.stringify({
+        game: 'practice',
+        version: 'beta.2',
+        recDate: M + '/' + D + '/' + Y,
+        chances: square[0],
+    })) 
+
 }
 const getWords = () => {
 
