@@ -1,8 +1,5 @@
 // ----- /api/analytics.js -----
 
-// Load dependencies
-const parse = require('parse-request')
-
 // Load database resources
 const faunadb = require('faunadb')
 let q = faunadb.query
@@ -62,11 +59,10 @@ module.exports = async (req, res) => {
 
     // Parse the request
     console.log(req.headers)
-    console.log(Object.keys(req))
-    console.log(parse(req))
-    let { request } = parse(req)
-    let method = request.method
-    let data = JSON.parse(request.body)
+    console.log(req.method)
+    console.log(req.body)
+    let method = req.method
+    let data = JSON.parse(req.body)
 
     if (method != 'POST') res.status(405).send('Method not allowed: ' + method)
 

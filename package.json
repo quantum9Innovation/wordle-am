@@ -16,7 +16,6 @@
   },
   "homepage": "https://github.com/quantum9Innovation/wordle-am#readme",
   "dependencies": {
-    "faunadb": "^4.5.4",
-    "parse-request": "^4.0.0"
+    "faunadb": "^4.5.4"
   }
 }
