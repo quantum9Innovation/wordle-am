@@ -599,6 +599,8 @@ const logWord = () => {
 }
 const logWin = () => { 
 
+    if (Cookies.get('4/win')) return
+
     let period = expire
     Cookies.set('4/win', square[0], { expires: period })
     
@@ -607,6 +609,15 @@ const logWin = () => {
     const D = period.getDate()
 
     Cookies.set('4/win-' + M + '/' + D + '/' + Y, square[0], { expires: 365 })
+
+    let xhttp = new XMLHttpRequest()
+    xhttp.open('POST', '../api/analytics', true)
+    xhttp.send(JSON.stringify({
+        game: 'four',
+        version: 'beta.2',
+        recDate: M + '/' + D + '/' + Y,
+        chances: square[0],
+    })) 
 
 }
 const getWords = () => {
