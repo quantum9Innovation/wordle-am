@@ -53,7 +53,7 @@ module.exports = async (req, res) => {
         const meta = { ip, ua, ul, referer }
 
         // Respect 'Do Not Track'
-        // if (dnt == '1') return res.status(200).send('OK')
+        if (dnt == '1') return res.status(200).send('DNT respected')
 
         // Region info
         const country = req.headers['x-vercel-ip-country']
