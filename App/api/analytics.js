@@ -55,6 +55,11 @@ module.exports = async (req, res) => {
         // Respect 'Do Not Track'
         if (dnt == '1') return res.status(200).send('DNT respected')
 
+        // Ignore Checkly
+        if (ua.includes('Checkly')) {
+            return res.status(200).send('Checkly ignored')
+        }
+
         // Region info
         const country = req.headers['x-vercel-ip-country']
         const region = req.headers['x-vercel-ip-country-region']
