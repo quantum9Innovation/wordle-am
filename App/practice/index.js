@@ -492,7 +492,7 @@ const findInDictionary = word => {
 
 
 // Cookie handlers
-const expireeDate = () => {
+const expiryDate = () => {
 
     let today = new Date()
     let todayEAT = new Date(
@@ -549,6 +549,15 @@ const logWin = () => {
     const D = today.getDate()
 
     // Cookies.set('win-' + M + '/' + D + '/' + Y, square[0], { expires: 365 })
+
+    let xhttp = new XMLHttpRequest()
+    xhttp.open('POST', '../api/analytics', true)
+    xhttp.send(JSON.stringify({
+        game: 'practice',
+        version: 'beta.2',
+        recDate: M + '/' + D + '/' + Y,
+        chances: square[0],
+    })) 
 
 }
 const getWords = () => {
@@ -913,7 +922,7 @@ window.onload = () => {
         )
     ).then ( () => {
          
-        expire = expireeDate()
+        expire = expiryDate()
         makeWord().then( () => {
             
             endLoad()
@@ -928,7 +937,7 @@ window.onload = () => {
 
 }
 
-// Intialize event listeners
+// Initialize event listeners
 document.addEventListener(
     'keyup', 
     (e) => {     

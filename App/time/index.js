@@ -574,7 +574,7 @@ const findInDictionary = word => {
 
 
 // Cookie handlers
-const expireeDate = () => {
+const expiryDate = () => {
 
     let today = new Date()
 
@@ -622,6 +622,8 @@ const logVisit = () => {
 }
 const logWin = () => { 
 
+    if (Cookies.get('T/win')) return
+
     let period = expire
     Cookies.set('T/win', nwords, { expires: period })
     
@@ -630,6 +632,15 @@ const logWin = () => {
     const D = period.getDate()
 
     Cookies.set('T/win-' + M + '/' + D + '/' + Y, nwords, { expires: 365 })
+
+    let xhttp = new XMLHttpRequest()
+    xhttp.open('POST', '../api/analytics', true)
+    xhttp.send(JSON.stringify({
+        game: 'time',
+        version: 'beta.2',
+        recDate: M + '/' + D + '/' + Y,
+        chances: nwords,
+    })) 
 
 }
 const getWords = () => {
@@ -1136,7 +1147,7 @@ window.onload = () => {
         )
     ).then ( () => { 
 
-        expire = expireeDate()
+        expire = expiryDate()
         if (waiting) {
             window.location.replace('../waiting.html')
         }
@@ -1159,7 +1170,7 @@ window.onload = () => {
 
 }
 
-// Intialize event listeners
+// Initialize event listeners
 document.addEventListener(
     'keyup', 
     (e) => {     
