@@ -552,7 +552,7 @@ const findInDictionary = word => {
 
 
 // Cookie handlers
-const expireeDate = () => {
+const expiryDate = () => {
 
     let today = new Date()
 
@@ -1028,7 +1028,7 @@ window.onload = () => {
         )
     ).then ( () => { 
 
-        expire = expireeDate()
+        expire = expiryDate()
         if (waiting) {
             window.location.replace('/waiting.html')
         }
@@ -1047,7 +1047,7 @@ window.onload = () => {
 
 }
 
-// Intialize event listeners
+// Initialize event listeners
 document.addEventListener(
     'keyup', 
     (e) => {     
