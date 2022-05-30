@@ -608,7 +608,6 @@ const logVisit = () => {
         xhttp.send(JSON.stringify({
             game: 'visit',
             version: 'beta.2',
-            recDate: M + '/' + D + '/' + Y,
             chances: 0,
         })) 
 
