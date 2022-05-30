@@ -1,6 +1,6 @@
 {
   "name": "wordle-am",
-  "version": "1.0.0-beta.2",
+  "version": "1.0.0-rc.1",
   "description": "The game of Wordle implemented in Amharic",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
