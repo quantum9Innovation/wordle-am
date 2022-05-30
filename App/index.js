@@ -616,6 +616,7 @@ const logWin = () => {
     let period = expire
     Cookies.set('win', square[0], { expires: period })
     
+    period = toEAT(period)
     const Y = period.getFullYear()
     const M = period.getMonth() + 1
     const D = period.getDate()

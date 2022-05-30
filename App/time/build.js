@@ -105,28 +105,28 @@ let makeHeader = () => {
     statsButton.className = 'header-button'
     statsButton.setAttribute('onclick', 'toggleStats()')
     statsButton.innerHTML = 
-    '<img src="../Icons/stats.svg" class="header-icon" alt="stats">'
+    '<img src="../Icons/stats.svg" class="header-icon" alt="ስታትስትክስ">'
 
     let settingsButton = document.createElement('button')
     settingsButton.id = 'settings-button'
     settingsButton.className = 'header-button'
     settingsButton.setAttribute('onclick', 'toggleSettings()')
     settingsButton.innerHTML = 
-    '<img src="../Icons/menu.svg" class="header-icon" alt="menu">'
+    '<img src="../Icons/menu.svg" class="header-icon" alt="ምናል">'
 
     let helpButton = document.createElement('a')
     helpButton.id = 'help-button'
     helpButton.className = 'header-button'
     helpButton.setAttribute('href', '../guide/')
     helpButton.innerHTML =
-    '<img src="../Icons/help.svg" class="header-icon" alt="help">'
+    '<img src="../Icons/help.svg" class="header-icon" alt="እርዳታ">'
 
     let skipButton = document.createElement('button')
     skipButton.id = 'reveal-button'
     skipButton.className = 'header-button'
     skipButton.setAttribute('onclick', 'reveal()')
     skipButton.innerHTML =
-    '<img src="../Icons/skip.svg" class="header-icon" alt="skip">'
+    '<img src="../Icons/skip.svg" class="header-icon" alt="መዝለል">'
 
     rightBar.appendChild(statsButton)
     rightBar.appendChild(settingsButton)
@@ -192,9 +192,9 @@ let makeKeyboard = () => {
 
     let letters = [
         'ሀ', 'ለ', 'ሐ', 'መ', 'ሠ', 'ረ', 'ሰ', 'ሸ', 'ቀ', 'በ', 'ተ', 'ቸ', 
-        '<img src="../Icons/backspace.svg" class="inline-icon" alt="backspace" >', 
+        '<img src="../Icons/backspace.svg" class="inline-icon" alt="መሰረዝ" >', 
             'ኀ', 'ነ', 'ኘ', 'አ', 'ከ', 'ኸ', 'ወ', 'ዐ', 'ዘ', 'ዠ', 
-        '<img src="../Icons/enter.svg" class="inline-icon" alt="enter" >',
+        '<img src="../Icons/enter.svg" class="inline-icon" alt="አስገባ" >',
         'የ', 'ደ', 'ጀ', 'ገ', 'ጠ', 'ጨ', 'ጰ', 'ጸ', 'ፀ', 'ፈ', 'ፐ', 'ቨ'
     ]
 
