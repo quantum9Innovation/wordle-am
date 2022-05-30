@@ -27,6 +27,7 @@ body {
   font-family: noto;
   text-align: left;
   font-family: Helvetica, Arial, sans-serif;
+  margin-top: 5vh;
 }
 
 @media (prefers-color-scheme: dark) {
