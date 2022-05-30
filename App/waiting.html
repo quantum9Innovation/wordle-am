@@ -17,13 +17,20 @@
 
     <meta name="theme-color" content="#ffffff">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="The game of Wordle implemented in Amharic" />
+    <meta name="description" content="የወርደል፡ጨዋታ፡ባማርኛ" />
 </head>
 
 <style>
+    @font-face {
+        font-family: noto;
+        src: url(Assets/Noto_Serif_Ethiopic/noto.ttf);
+        font-weight: 500;
+    }
+
     body {
         width: 100vw;
         height: 100vh;
+        font-family: noto;
         color: white;
         background: linear-gradient(45deg, rgb(30, 60, 30), rgb(30, 30, 60));
     }
@@ -43,7 +50,7 @@
 
     #description {
         font-size: 2vh;
-        text-align: left;
+        text-align: center;
     }
 
     #countdown {
@@ -56,9 +63,7 @@
     <div id="container">
         <h1 id="title">ቃልነት | መጠበቅ</h1>
         <p id="description">
-            A new word is generated at approximately 12:00 AM (EAT) every day.
-            However, it may sometimes take up to 30 minutes before the word is fully finalized.
-            Please check back later at around 12:30 AM (EAT) to see if the word is ready.
+            በየለቱ፡ከለሊቱ፡ስድስት፡ተኩል (የምስራቅ፡አፍሪካ፡ጊዜ) አዲስ፡ቃል፡ይፈጠራል።
         </p>
         <p id="countdown"></p>
     </div>
