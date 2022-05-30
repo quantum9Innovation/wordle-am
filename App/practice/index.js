@@ -523,7 +523,20 @@ const expiryDate = () => {
     return expire
 
 }
-const logVisit = () => Cookies.set('visited', 'alpha', { expires: 7 })
+const logVisit = () => {
+    
+    Cookies.set('visited', 'beta.2', { expires: 7 })
+
+    let xhttp = new XMLHttpRequest()
+    xhttp.open('POST', './api/analytics', true)
+    xhttp.send(JSON.stringify({
+        game: 'visit',
+        version: 'beta.2',
+        recDate: M + '/' + D + '/' + Y,
+        chances: 0,
+    }))
+
+}
 const logWord = () => { 
 
     let word = []

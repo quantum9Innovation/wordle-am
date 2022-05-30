@@ -576,7 +576,20 @@ const expireeDate = () => {
 }
 const logVisit = () => { 
     
-    let set = () => Cookies.set('visited', 'beta.2', { expires: 7 })
+    let set = () => {
+        
+        Cookies.set('visited', 'beta.2', { expires: 7 })
+
+        let xhttp = new XMLHttpRequest()
+        xhttp.open('POST', './api/analytics', true)
+        xhttp.send(JSON.stringify({
+            game: 'visit',
+            version: 'beta.2',
+            recDate: M + '/' + D + '/' + Y,
+            chances: 0,
+        })) 
+
+    }
     let visit = Cookies.get('visited')
 
     if ( !visit ) set()
