@@ -61,6 +61,39 @@ let content = document.getElementById('content')
 let square = [1, 1]
 
 
+// Timezones
+
+// local -> UTC
+const toUTC = date => {
+
+    let now = new Date()
+    return new Date(
+        date.getTime() + now.getTimezoneOffset() * 60 * 1000
+    )
+
+}
+
+// local -> EAT
+const toEAT = date => {
+
+    let utc = toUTC(date)
+    return new Date(
+        utc.getTime() + 3 * 60 * 60 * 1000
+    )
+
+}
+
+// EAT -> local
+const toLocal = date => {
+
+    let now = new Date()
+    return new Date(
+        date.getTime() - (now.getTimezoneOffset() + 3 * 60) * 60 * 1000
+    )
+
+}
+
+
 // Helper funcs
 const paint = sq => {
     
@@ -495,31 +528,12 @@ const findInDictionary = word => {
 const expiryDate = () => {
 
     let today = new Date()
-    let todayEAT = new Date(
-        today.getTime() + (today.getTimezoneOffset() + 180) * 60000
-    )
 
-    let expireEAT = new Date(todayEAT.getTime())
+    let expireEAT = toEAT(today)
     expireEAT.setHours(0, 0, 0, 0)
     expireEAT.setDate(expireEAT.getDate() + 1)
 
-    let expire = new Date(
-        expireEAT.getTime() - (today.getTimezoneOffset() + 180) * 60000
-    )
-    let e_expire = lastUpdate
-    e_expire.setDate(e_expire.getDate() + 1)
-    e_expire = new Date(
-        e_expire.getTime() - (today.getTimezoneOffset() + 180) * 60000
-    )
-
-    if ( expire.getTime() != e_expire.getTime() ) {
-        
-        let diff = Date.now() - e_expire
-        let safeExpire = new Date(e_expire.getTime() + 30 * 60 * 1000)
-        if ( diff < 30 * 60 * 1000 ) return safeExpire
-
-    }
-
+    let expire = toLocal(expireEAT)
     return expire
 
 }
@@ -555,7 +569,7 @@ const logWin = () => {
     let period = expire
     // Cookies.set('win', square[0], { expires: period })
     
-    const today = new Date()
+    const today = toEAT(period)
     const Y = today.getFullYear()
     const M = today.getMonth() + 1
     const D = today.getDate()
