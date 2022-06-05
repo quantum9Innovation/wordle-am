@@ -15,7 +15,7 @@
     <meta name="msapplication-TileImage" content="../Favicons/mstile-144x144.png">
     <meta name="theme-color" content="#ffffff">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="የወርደል፡ጨዋታ፡ባማርኛ" />
+    <meta name="description" content="የወርደል ጨዋታ ባማርኛ" />
 
     <link rel="stylesheet" href="../index.css">
     <link rel="stylesheet" href="./index.css">
@@ -27,54 +27,277 @@
     <p>
         <a href="..">← መውጣት</a>
     </p>
-    <h1>የቃልነት መመሪያዎች</h1>
+    <h1>የቃልነት ጨዋታ መመሪያ</h1>
     <p>
-        የተደበቀውን፡ቃል፡በአምስት፡ፊደሎች፡ገመቱ።
-        ግብ፡የተደበቀውን፡ቃል፡በአነስ፡ጊዜ፡መገመት፡ነው።
+        ጨዋታውን ለማሸነፍ የተደበቀውን ቃል ማግኘት ነው።
+        ቃሉን ለማግኘት አምስት ፊደሎቹን በተሰጠውን ሳትን ውስጥ አስገቡና (↩) ተጫሉ።
     </p>
-    
-    <div id="1" class="word ethiopic">
-        <div class="box 1 pink" id="1-1">ኢ</div>
-        <div class="box 2 gray" id="1-2">ት</div>
-        <div class="box 3 blue" id="1-3">ዮ</div>
-        <div class="box 4 gray" id="1-4">ጵ</div>
-        <div class="box 5 gray" id="1-5">ያ</div>
-    </div> <br>
 
-    <p>
-        ሮዝ፡ማለት፡ቦታውት፡ትክክል፡ነው፡እና፡ቤትሰብ፡ትክክል፡ነው።
-        ግራቻ፡ማለት፡ፊደሉ፡እና፡ቦታውት፡ትክክል፡አይደለም።
-        ሰማያዊ፡ማለት፡ቦታውት፡ትክክል፡አይደለም፡ነገር፡ግን፡ቤትሰብ፡ትክክል፡ነው።
-    </p>
-    
-    <div id="2" class="word ethiopic">
-        <div class="box 1 green" id="2-1">እ</div>
-        <div class="box 2 gray" id="2-2">ህ</div>
-        <div class="box 3 gray" id="2-3">ት</div>
-        <div class="box 4 yellow" id="2-4">የ</div>
-        <div class="box 5 gray" id="2-5">ው</div>
-    </div> <br>
+    <div id="tutorial">
 
-    <p>
-        አረንጓዴ፡ማለት፡ቦታውት፡እና፡ቤትሰብ፡ትክክል፡ናቸው።
-        ቢጫ፡ማለት፡ፊደሉ፡ትክክል፡ነው፡ነገር፡ግን፡ቦታውት፡ትክክል፡አይደለም።
-    </p>
-    
-    <div id="3" class="word ethiopic">
-        <div class="box 1 green" id="3-1">እ</div>
-        <div class="box 2 green" id="3-2">የ</div>
-        <div class="box 3 green" id="3-3">ዘ</div>
-        <div class="box 4 green" id="3-4">ለ</div>
-        <div class="box 5 green" id="3-5">ሉ</div>
-    </div> <br>
+        <h1 id="tutorial-header" >ቃለማቱ ትርጉም</h1>
 
-    <p>
-        ሁሉ፡ፊደል፡ሲገኝ፡ጨዋታው፡ይጠናቀቃል።
-        አዲስ፡<em>ቃልነት</em>፡ይፈጠራል፡በስድስት፡ሰአት፡የምስራቅ፡አፍሪካ፡ጊዜ።
-        መልካም፡እድል!
-    </p>
-    <br><br>
+        <div id="ex" class="word ethiopic">
+            <div class="box 1 gray" id="-1">መ</div>
+            <div class="box 2 gray" id="-2">ለ</div>
+            <div class="box 3 gray" id="-3">ማ</div>
+            <div class="box 4 gray" id="-4">መ</div>
+            <div class="box 5 gray" id="-5">ድ</div>
+        </div>
+    
+        <p id="des">
+            <span class="gray-des">ግራቻ</span> = 
+            ፊደሉ እና ቦታውት ትክክል አይደለም
+        </p>
+
+        <button id="back" onclick="back()">← ኋላ</button>
+        <button id="btn" onclick="next()">ቀጥል →</button>
+
+    </div>
+
+    <div id="closing">
+
+        <p>
+            ሁሉ ፊደል ሲገኝ ጨዋታው ይጠናቀቃል።
+            አዲስ <em>ቃልነት</em> ይፈጠራል በስድስት ሰአት የምስራቅ አፍሪካ ጊዜ።
+            መልካም እድል!
+        </p>
+
+    </div>
 
 </body>
+<script>
+
+    let current = 1
+
+    const word = 'ኢትዮጵያ'
+    const WORDS = ['መለማመድ', 'ሚኒስተር', 'ትምህርት', 'አነበበች', 'መቀጠሪያ', 'አማርኝኛ', 'ኢትዮጵያ']
+    const STYLES = ['gray', 'blue', 'yellow', 'pink', 'green', 'red', 'green']
+    const COLORS = ['ግራቻ', 'ሰማያዊ', 'ቢጫ', 'ሮዝ', 'አረንጓዴ', 'ቀይ', 'ሁሉ አረንጓዴ']
+    const DESCRIPTIONS = [
+        'ፊደሉ እና ቦታውት ትክክል አይደለም', 
+        'ቦታውት ትክክል አይደለም። ቤትሰብ ትክክል ነው።',
+        'ፊደሉ ትክክል ነው። ቦታውት ትክክል አይደለም።',
+        'ቦታውት እና ቤትሰብ ትክክል ናቸው',
+        'ቦታውት እና ፊደሉ ትክክል ናቸው',
+        'መዝገበቃላት ውስጥ የለም',
+        'ቃል ትክክል ነው'
+    ]
+
+    const fidal = [
+        ['ሀ', 'ሁ', 'ሂ', 'ሃ', 'ሄ', 'ህ', 'ሆ'],
+        ['ለ', 'ሉ', 'ሊ', 'ላ', 'ሌ', 'ል', 'ሎ', 'ሏ'],
+        ['ሐ', 'ሑ', 'ሒ', 'ሓ', 'ሔ', 'ሕ', 'ሖ', 'ሗ'],
+        ['መ', 'ሙ', 'ሚ', 'ማ', 'ሜ', 'ም', 'ሞ', 'ሟ'],
+        ['ሠ', 'ሡ', 'ሢ', 'ሣ', 'ሤ', 'ሥ', 'ሦ', 'ሧ'],
+        ['ረ', 'ሩ', 'ሪ', 'ራ', 'ሬ', 'ር', 'ሮ', 'ሯ'],
+        ['ሰ', 'ሱ', 'ሲ', 'ሳ', 'ሴ', 'ስ', 'ሶ', 'ሷ'],
+        ['ሸ', 'ሹ', 'ሺ', 'ሻ', 'ሼ', 'ሽ', 'ሾ', 'ሿ'],
+        ['ቀ', 'ቁ', 'ቂ', 'ቃ', 'ቄ', 'ቅ', 'ቆ', 'ቋ'],
+        ['በ', 'ቡ', 'ቢ', 'ባ', 'ቤ', 'ብ', 'ቦ', 'ቧ'],
+        ['ተ', 'ቱ', 'ቲ', 'ታ', 'ቴ', 'ት', 'ቶ', 'ቷ'],
+        ['ቸ', 'ቹ', 'ቺ', 'ቻ', 'ቼ', 'ች', 'ቾ', 'ቿ'],
+        ['ኀ', 'ኁ', 'ኂ', 'ኃ', 'ኄ', 'ኅ', 'ኆ', 'ኋ'],
+        ['ነ', 'ኑ', 'ኒ', 'ና', 'ኔ', 'ን', 'ኖ', 'ኗ'],
+        ['ኘ', 'ኙ', 'ኚ', 'ኛ', 'ኜ', 'ኝ', 'ኞ', 'ኟ'],
+        ['አ', 'ኡ', 'ኢ', 'ኣ', 'ኤ', 'እ', 'ኦ', 'ኧ'],
+        ['ከ', 'ኩ', 'ኪ', 'ካ', 'ኬ', 'ክ', 'ኮ', 'ኳ'],
+        ['ኸ', 'ኹ', 'ኺ', 'ኻ', 'ኼ', 'ኽ', 'ኾ'],
+        ['ወ', 'ዉ', 'ዊ', 'ዋ', 'ዌ', 'ው', 'ዎ'], 
+        ['ዐ', 'ዑ', 'ዒ', 'ዓ', 'ዔ', 'ዕ', 'ዖ'],
+        ['ዘ', 'ዙ', 'ዚ', 'ዛ', 'ዜ', 'ዝ', 'ዞ', 'ዟ'],
+        ['ዠ', 'ዡ', 'ዢ', 'ዣ', 'ዤ', 'ዥ', 'ዦ', 'ዧ'],
+        ['የ', 'ዩ', 'ዪ', 'ያ', 'ዬ', 'ይ', 'ዮ'],
+        ['ደ', 'ዱ', 'ዲ', 'ዳ', 'ዴ', 'ድ', 'ዶ', 'ዷ'],
+        ['ጀ', 'ጁ', 'ጂ', 'ጃ', 'ጄ', 'ጅ', 'ጆ', 'ጇ'],
+        ['ገ', 'ጉ', 'ጊ', 'ጋ', 'ጌ', 'ግ', 'ጎ', 'ጓ'],
+        ['ጠ', 'ጡ', 'ጢ', 'ጣ', 'ጤ', 'ጥ', 'ጦ', 'ጧ'],
+        ['ጨ', 'ጩ', 'ጪ', 'ጫ', 'ጬ', 'ጭ', 'ጮ', 'ጯ'],
+        ['ጰ', 'ጱ', 'ጲ', 'ጳ', 'ጴ', 'ጵ', 'ጶ', 'ጷ'],
+        ['ጸ', 'ጹ', 'ጺ', 'ጻ', 'ጼ', 'ጽ', 'ጾ', 'ጿ'],
+        ['ፀ', 'ፁ', 'ፂ', 'ፃ', 'ፄ', 'ፅ', 'ፆ'],
+        ['ፈ', 'ፉ', 'ፊ', 'ፋ', 'ፌ', 'ፍ', 'ፎ', 'ፏ'],
+        ['ፐ', 'ፑ', 'ፒ', 'ፓ', 'ፔ', 'ፕ', 'ፖ', 'ፗ'],
+        ['ቨ', 'ቩ', 'ቪ', 'ቫ', 'ቬ', 'ቭ', 'ቮ', 'ቯ']
+    ]
+    const keys = [
+        'ሀ', 'ለ', 'ሐ', 'መ', 'ሠ', 'ረ', 'ሰ', 'ሸ', 'ቀ', 'በ', 'ተ', 'ቸ', 
+        'ኀ', 'ነ', 'ኘ', 'አ', 'ከ', 'ኸ', 'ወ', 'ዐ', 'ዘ', 'ዠ', 
+        'የ', 'ደ', 'ጀ', 'ገ', 'ጠ', 'ጨ', 'ጰ', 'ጸ', 'ፀ', 'ፈ', 'ፐ', 'ቨ' 
+    ]
+
+    const crossCheck = vec => {
+
+        let resultant = [0, 0, 0, 0, 0]
+        let template = word.split('')
+
+        let matrix = []
+        for ( let i = 0; i < 5; i++ ) matrix.push(vec.split('')[i])
+
+
+        // First pass - check for exact matches
+        for ( let i = 0; i < 5; i++ ) {
+
+            if ( matrix[i] == template[i] ) {
+
+                resultant[i] = 1
+                template[i] = ''
+
+            }
+
+        }
+
+
+        // Second pass - check for exact family matches
+
+        // Initialize families
+        let template_family = []
+        let word_family = []
+
+        for ( let i = 0; i < 5; i++ ) {
+
+            if ( resultant[i] != 0 ) {
+                template_family.push('')
+                word_family.push('')
+                continue
+            }
+
+            for ( let k = 0; k < fidal.length; k++ ) {
+                    
+                if ( fidal[k].includes(template[i]) ) template_family.push(keys[k])
+                if ( fidal[k].includes(matrix[i]) ) word_family.push(keys[k])
+
+            }
+
+        }
+
+        // Check for matches
+        for ( let i = 0; i < 5; i++ ) {
+
+            if (resultant[i] != 0) continue
+            if ( word_family[i] == template_family[i] ) {
+
+                resultant[i] = 2
+                template[i] = ''
+                template_family[i] = ''
+
+            }
+
+        }
+
+
+        // Third pass - check for partial matches
+        for ( let i = 0; i < 5; i++ ) {
+
+            if ( resultant[i] != 0 ) continue
+            for ( let j = 0; j < 5; j++ ) {
+
+                if ( matrix[i] == template[j] ) {
+
+                    resultant[i] = 3
+                    template[j] = ''
+                    template_family[j] = ''
+
+                }
+
+            }
+
+        }
+
+
+        // Fourth pass - check for partial family matches
+        for ( let i = 0; i < 5; i++ ) {
+
+            if ( resultant[i] != 0 ) continue
+            for ( let j = 0; j < 5; j++ ) {
+
+                if ( word_family[i] == template_family[j] ) {
+
+                    resultant[i] = 4
+                    template[j] = ''
+                    template_family[j] = ''
+
+                }
+
+            }
+
+        }
+
+
+        // Convert to styles
+        let styles = []
+        for ( let i = 0; i < 5; i++ ) {
+
+            switch (resultant[i]) {
+                case 0:
+                    styles.push('gray')
+                    break
+                case 1:
+                    styles.push('green')
+                    break
+                case 2:
+                    styles.push('pink')
+                    break
+                case 3:
+                    styles.push('yellow')
+                    break
+                case 4:
+                    styles.push('blue')
+                    break
+            }
+
+        }
+        return styles
+
+    }
+
+    const next = () => {
+
+        if (current < WORDS.length) current++
+        if (current == WORDS.length) {
+
+            const btn = document.getElementById('btn')
+            btn.innerHTML = 'ጨርስ ↓'
+
+            window.scrollTo(
+                window.scrollX,
+                window.innerHeight
+            )
+            
+        }
+
+        const word = document.getElementById('ex')
+        const des = document.getElementById('des')
+
+        let styling = crossCheck(WORDS[current - 1])
+        if (current == 6) styling = ['incorrect', 'incorrect', 'incorrect', 'incorrect', 'incorrect']
+
+        for (let i = 1; i <= 5; i++) {
+
+            const box = document.getElementById(`-${i}`)
+            box.className = `box ${i} ${styling[i - 1]}`
+            box.innerHTML = WORDS[current - 1][i - 1]
+
+        }
+
+        des.innerHTML = 
+        `<span class="${STYLES[current - 1]}-des">${COLORS[current - 1]}</span> = ` 
+        + `${DESCRIPTIONS[current - 1]}`
+
+    }
+    const back = () => {
+
+        if (current > 1) {
+
+            const btn = document.getElementById('btn')
+            btn.innerHTML = 'ቀጥል →'
+            current -= 2
+            next()
+
+        }
+
+    }
+
+</script>
 
 </html>

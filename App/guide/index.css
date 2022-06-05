@@ -24,10 +24,73 @@ body {
   position: absolute;
   left: 25vw;
   width: 50vw;
-  font-family: noto;
   text-align: left;
-  font-family: Helvetica, Arial, sans-serif;
   margin-top: 5vh;
+  font-family: noto;
+}
+
+button {
+  background-color: var(--theme);
+  color: white;
+  border: none;
+  padding: 1.5vh;
+  font-size: 3vh;
+  border-radius: 1.75vh;
+  cursor: pointer;
+}
+
+button:hover {
+  box-shadow: 0.5vh 0.5vh 2.5vh 0.25vh rgba(0, 0, 0, 0.35);
+}
+
+#tutorial {
+  margin-top: 7.5vh;
+  margin-bottom: 7.5vh;
+  background-color: #eee;
+  padding: 2vh;
+  padding-bottom: 4vh;
+  padding-left: 4vw;
+  padding-right: 4vw;
+  border-radius: 1.75vh;
+}
+
+#closing {
+  padding-bottom: 5vh;
+}
+
+#des {
+  font-size: 4vh;
+  margin-top: 2.5vh;
+}
+
+.gray-des {
+  color: var(--gray);
+  font-weight: bold;
+}
+
+.blue-des {
+  color: var(--blue);
+  font-weight: bold;
+}
+
+.yellow-des {
+  color: var(--yellow);
+  font-weight: bold;
+}
+
+.pink-des {
+  color: var(--pink);
+  font-weight: bold;
+}
+
+.green-des {
+  color: var(--green);
+  font-weight: bold;
+}
+
+.red-des {
+  color: var(--red);
+  font-weight: bold;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -46,14 +109,24 @@ body {
     color: #0af;
   }
 
+  #tutorial {
+    background-color: #444;
+    color: #fff;
+  }
+
 }
 
-@media (max-aspect-ratio: 1/1) {
+@media (max-aspect-ratio: 6/5) {
 
   body {
     position: absolute;
     left: 20vw;
     width: 60vw;
+  }
+
+  #tutorial {
+    width: 70vw;
+    margin-left: -5vw;
   }
 
 }
@@ -72,6 +145,11 @@ body {
 
   p {
     font-size: 3vw;
+  }
+
+  #tutorial {
+    width: 90vw;
+    margin-left: -5vw;
   }
 
 }
