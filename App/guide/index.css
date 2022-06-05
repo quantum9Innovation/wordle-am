@@ -13,6 +13,11 @@
 
   /* Loading */
   --loading-size: 7vw;
+
+  /* Keyboard elements */
+  --kbd-color-background: #ddd;
+  --kbd-color-border: #555;
+  --kbd-color-text: black;
 }
 
 @font-face {
@@ -43,11 +48,15 @@ button:hover {
   box-shadow: 0.5vh 0.5vh 2.5vh 0.25vh rgba(0, 0, 0, 0.35);
 }
 
-#tutorial {
+#tutorial-header {
   margin-top: 7.5vh;
+}
+
+#tutorial {
   margin-bottom: 7.5vh;
   background-color: #eee;
   padding: 2vh;
+  padding-top: 4vh;
   padding-bottom: 4vh;
   padding-left: 4vw;
   padding-right: 4vw;
@@ -59,7 +68,6 @@ button:hover {
 }
 
 #des {
-  font-size: 4vh;
   margin-top: 2.5vh;
 }
 
@@ -98,6 +106,13 @@ button:hover {
   body {
     background-color: #333;
     color: #fff;
+  }
+
+  :root {
+    --kbd-color-background: #888;
+    --kbd-color-border: black;
+    --kbd-color-text: white;
+    --gray: #999;
   }
 
   a {
@@ -154,8 +169,40 @@ button:hover {
 
 }
 
+kbd {
+
+  background-color: var(--kbd-color-background);
+  color: var(--kbd-color-text);
+
+  border-radius: 0.25rem;
+
+  border: 1px solid var(--kbd-color-border);
+
+  box-shadow: 0 2px 0 1px var(--kbd-color-border);
+
+  cursor: default;
+
+  min-width: 0.75rem;
+  text-align: center;
+
+  padding: 2px 5px;
+
+  position: relative;
+  top: -1px;
+
+}
+
+kbd:hover {
+  box-shadow: 0 1px 0 0.5px var(--kbd-color-border);
+  top: 1px;
+}
+
 h1 {
   font-size: 6vh;
+}
+
+h2 {
+  font-size: 4.5vh;
 }
 
 p {
