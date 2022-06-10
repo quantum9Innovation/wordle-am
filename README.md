@@ -1,4 +1,4 @@
-# ቃልነት
+# እንቆቅልሽ
 
 > quantum9innovation/wordle-am
 
