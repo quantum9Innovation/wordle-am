@@ -578,13 +578,13 @@ const logVisit = () => {
     
     let set = () => {
         
-        Cookies.set('visited', 'rc.1', { expires: 7 })
+        Cookies.set('visited', 'rc.2', { expires: 7 })
 
         let xhttp = new XMLHttpRequest()
         xhttp.open('POST', './api/analytics', true)
         xhttp.send(JSON.stringify({
             game: 'visit',
-            version: 'rc.1',
+            version: 'rc.2',
             chances: 0,
         })) 
 
@@ -592,7 +592,7 @@ const logVisit = () => {
     let visit = Cookies.get('visited')
 
     if ( !visit ) set()
-    else if ( visit != 'rc.1' ) set()
+    else if ( visit != 'rc.2' ) set()
 
 }
 const logWord = () => { 
@@ -627,7 +627,7 @@ const logWin = () => {
     xhttp.open('POST', './api/analytics', true)
     xhttp.send(JSON.stringify({
         game: 'standard',
-        version: 'rc.1',
+        version: 'rc.2',
         recDate: M + '/' + D + '/' + Y,
         chances: square[0],
     })) 
