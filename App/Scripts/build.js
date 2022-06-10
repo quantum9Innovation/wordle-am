@@ -92,7 +92,7 @@ let makeHeader = () => {
 
     let title = document.createElement('h1')
     title.id = 'title'
-    title.innerHTML = 'ቃልነት'
+    title.innerHTML = 'እንቆቅልሽ'
 
     let leftBar = document.createElement('div')
     leftBar.id = 'left-bar'

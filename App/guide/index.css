@@ -13,6 +13,11 @@
 
   /* Loading */
   --loading-size: 7vw;
+
+  /* Keyboard elements */
+  --kbd-color-background: #ddd;
+  --kbd-color-border: #555;
+  --kbd-color-text: black;
 }
 
 @font-face {
@@ -24,10 +29,76 @@ body {
   position: absolute;
   left: 25vw;
   width: 50vw;
-  font-family: noto;
   text-align: left;
-  font-family: Helvetica, Arial, sans-serif;
   margin-top: 5vh;
+  font-family: noto;
+}
+
+button {
+  background-color: var(--theme);
+  color: white;
+  border: none;
+  padding: 1.5vh;
+  font-size: 3vh;
+  border-radius: 1.75vh;
+  cursor: pointer;
+}
+
+button:hover {
+  box-shadow: 0.5vh 0.5vh 2.5vh 0.25vh rgba(0, 0, 0, 0.35);
+}
+
+#tutorial-header {
+  margin-top: 7.5vh;
+}
+
+#tutorial {
+  margin-bottom: 7.5vh;
+  background-color: #eee;
+  padding: 2vh;
+  padding-top: 4vh;
+  padding-bottom: 4vh;
+  padding-left: 4vw;
+  padding-right: 4vw;
+  border-radius: 1.75vh;
+}
+
+#closing {
+  padding-bottom: 5vh;
+}
+
+#des {
+  margin-top: 2.5vh;
+}
+
+.gray-des {
+  color: var(--gray);
+  font-weight: bold;
+}
+
+.blue-des {
+  color: var(--blue);
+  font-weight: bold;
+}
+
+.yellow-des {
+  color: var(--yellow);
+  font-weight: bold;
+}
+
+.pink-des {
+  color: var(--pink);
+  font-weight: bold;
+}
+
+.green-des {
+  color: var(--green);
+  font-weight: bold;
+}
+
+.red-des {
+  color: var(--red);
+  font-weight: bold;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -35,6 +106,13 @@ body {
   body {
     background-color: #333;
     color: #fff;
+  }
+
+  :root {
+    --kbd-color-background: #888;
+    --kbd-color-border: black;
+    --kbd-color-text: white;
+    --gray: #999;
   }
 
   a {
@@ -46,14 +124,24 @@ body {
     color: #0af;
   }
 
+  #tutorial {
+    background-color: #444;
+    color: #fff;
+  }
+
 }
 
-@media (max-aspect-ratio: 1/1) {
+@media (max-aspect-ratio: 6/5) {
 
   body {
     position: absolute;
     left: 20vw;
     width: 60vw;
+  }
+
+  #tutorial {
+    width: 70vw;
+    margin-left: -5vw;
   }
 
 }
@@ -74,10 +162,47 @@ body {
     font-size: 3vw;
   }
 
+  #tutorial {
+    width: 90vw;
+    margin-left: -5vw;
+  }
+
+}
+
+kbd {
+
+  background-color: var(--kbd-color-background);
+  color: var(--kbd-color-text);
+
+  border-radius: 0.25rem;
+
+  border: 1px solid var(--kbd-color-border);
+
+  box-shadow: 0 2px 0 1px var(--kbd-color-border);
+
+  cursor: default;
+
+  min-width: 0.75rem;
+  text-align: center;
+
+  padding: 2px 5px;
+
+  position: relative;
+  top: -1px;
+
+}
+
+kbd:hover {
+  box-shadow: 0 1px 0 0.5px var(--kbd-color-border);
+  top: 1px;
 }
 
 h1 {
   font-size: 6vh;
+}
+
+h2 {
+  font-size: 4.5vh;
 }
 
 p {
