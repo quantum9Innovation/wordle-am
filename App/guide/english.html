@@ -22,27 +22,27 @@
 
 </head>
 
-<body>
+<body class="lang-en" >
 
     <p>
-        <a href="..">← መውጫ</a>
+        <a href="..">← Back</a>
         <br><br>
-        <a href="english.html">በእንግሊዘኛ</a>
+        <a href="index.html" class="ethiopic">ባማርኛ</a>
     </p>
-    <h1>የእንቆቅልሽ ጨዋታ መመሪያ</h1>
+    <h1>Instructions for <span class="ethiopic">እንቆቅልሽ</span></h1>
     <p>
-        ጨዋታውን ለማሸነፍ የተደበቀውን ቃል ፈልጎ ማግኘት ያስፈልጋል።
+        Win the game by guessing the hidden word.
         <br><br>
-        የሚጫወቱበት ቃል ፊደሎች አምስት መሆን አለባቸው።
+        Each hidden word is five letters long.
         <br><br>
-        ፊደሎቹንም በተሰጠው ሳጥን ውስጥ ካስገቡ በኋላ <kbd>↩</kbd> ምልክት ይጫኑ።
+        Make a guess by selecting five letters and then clicking the <kbd>↩</kbd> button.
         <br><br>
-        ውጤቱም የተለያዩ ቀለማትን ይሰጣል።
+        When entered, each letter will turn a different color.
     </p>
 
-    <h2 id="tutorial-header" >የቀለማቱ ትርጓሜ</h2>
+    <h2 id="tutorial-header" >The Colors</h2>
     <p>
-        ለምሳሌ <strong>መለማመድ</strong> የተደበቀው ቃል ሲሆን የሚጫወቱበትን ቃል በሳጥን ውስጥ እናስገባና ውጤቱን እናያለን።
+        For example, if the word <strong class="ethiopic">መለማመድ</strong> was guessed, each of the letters would reveal the following colors:
     </p>
 
     <div id="tutorial">
@@ -56,23 +56,23 @@
         </div>
     
         <p id="des">
-            <span class="gray-des">ግራጫ</span> = 
-            ፊደሉ እና ቦታውት ትክክል አይደለም
+            <span class="gray-des">Gray</span> = 
+            Letters are wrong (not in the hidden word)
         </p>
 
-        <button id="back" onclick="back()">← ወደኋላ</button>
-        <button id="btn" onclick="next()">ወደፊት →</button>
+        <button id="back" onclick="back()">← Back</button>
+        <button id="btn" onclick="next()">Next →</button>
 
     </div>
 
     <div id="closing">
 
         <p>
-            ሁሉም ፊደሎች አረንጓዴ ሲሆኑ ጨዋታው ይጠናቀቃል።
+            If all the letters are green, you have successfully guessed the hidden word and the game is over.
             <br><br>
-            በኢትዮጵያ ሰዐት አቆጣጠር እኩለ ለሊት ሲሆን ለሌላ ጨዋታ አዲስ ቃል ይፈጠራል።
+            At midnight East African Time (EAT), within a period of thirty minutes, a new word will be generated.
             <br><br>
-            መልካም እድል!
+            Good luck!
         </p>
 
     </div>
@@ -85,15 +85,15 @@
     const word = 'ኢትዮጵያ'
     const WORDS = ['መለማመድ', 'ሚኒስተር', 'ትምህርት', 'አነበበች', 'መቀጠሪያ', 'አማርኝኛ', 'ኢትዮጵያ']
     const STYLES = ['gray', 'blue', 'yellow', 'pink', 'green', 'red', 'green']
-    const COLORS = ['ግራጫ', 'ሰማያዊ', 'ቢጫ', 'ሮዝ', 'አረንጓዴ', 'ቀይ', 'ሁሉም አረንጓዴ']
+    const COLORS = ['Gray', 'Blue', 'Yellow', 'Pink', 'Green', 'Red', 'All green']
     const DESCRIPTIONS = [
-        'ፊደሉ እና ቦታውት ትክክል አይደለም', 
-        'ቦታው ትክክል አይደለም፤ ቤትሰብ ትክክል ነው',
-        'ፊደሉ ትክክል ነው፤ ቦታው ትክክል አይደለም',
-        'ቦታው እና ቤትሰብ ትክክል ናቸው',
-        'ቦታው እና ፊደሉ ትክክል ናቸው',
-        'ቃሉ መዝገበ ቃላት ውስጥ የለም',
-        'ቃሉ ትክክል ነው'
+        'Letters are wrong (not in hidden word)', 
+        'Letter family is right but the position is wrong',
+        'Letter is exactly correct but position is wrong',
+        'Letter family and position are both correct',
+        'Letter is right as played (exact letter found and in the right place)',
+        'This word wasn\'t found in the dictionary',
+        'The hidden word was found'
     ]
 
     const fidal = [
@@ -269,7 +269,7 @@
         if (current == WORDS.length) {
 
             const btn = document.getElementById('btn')
-            btn.innerHTML = 'ጨርስ ↓'
+            btn.innerHTML = 'Finish ↓'
 
             window.scrollTo(
                 window.scrollX,
@@ -302,7 +302,7 @@
         if (current > 1) {
 
             const btn = document.getElementById('btn')
-            btn.innerHTML = 'ወደፊት →'
+            btn.innerHTML = 'Next →'
             current -= 2
             next()
 

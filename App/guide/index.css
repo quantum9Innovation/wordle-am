@@ -34,6 +34,14 @@ body {
   font-family: noto;
 }
 
+.lang-en {
+  font-family: Helvetica, sans-serif;
+}
+
+.ethiopic {
+  font-family: noto;
+}
+
 button {
   background-color: var(--theme);
   color: white;
@@ -42,6 +50,10 @@ button {
   font-size: 3vh;
   border-radius: 1.75vh;
   cursor: pointer;
+}
+
+.lang-en button {
+  font-family: Helvetica, sans-serif;
 }
 
 button:hover {
