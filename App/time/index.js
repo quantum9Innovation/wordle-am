@@ -67,6 +67,7 @@ let square = [1, 1]
 let newWord = false
 let nwords = 0
 let skipped = 0
+let visited = true
 
 // Timing
 let started = false
@@ -600,7 +601,8 @@ const logVisit = () => {
     
     // Log visit
     let set = () => {
-        
+       
+        visited = false
         Cookies.set('visited', 'rc.2', { expires: 7 })
 
         let xhttp = new XMLHttpRequest()
@@ -654,6 +656,19 @@ const logWin = () => {
         recDate: M + '/' + D + '/' + Y,
         chances: nwords,
     })) 
+
+}
+const logInteraction = () => {
+
+    let xhttp = new XMLHttpRequest()
+    xhttp.open('POST', './api/analytics', true)
+    xhttp.send(JSON.stringify({
+        game: 'played',
+        version: 'rc.2',
+        chances: 0,
+    }))
+
+    visited = true
 
 }
 const getWords = () => {
@@ -961,6 +976,7 @@ const enter = () => {
 
     if ( !isValid() ) return
     if ( !newWord ) return
+    if ( !visited ) logInteraction()
     
     let resultant = crossCheck()
     paintLetters(resultant)

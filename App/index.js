@@ -64,6 +64,7 @@ let timerCounter = 10
 let timerInterval
 let content = document.getElementById('content')
 let square = [1, 1]
+let visited = true
 
 
 // Timezones
@@ -578,6 +579,7 @@ const logVisit = () => {
     
     let set = () => {
         
+        visited = false
         Cookies.set('visited', 'rc.2', { expires: 7 })
 
         let xhttp = new XMLHttpRequest()
@@ -593,6 +595,19 @@ const logVisit = () => {
 
     if ( !visit ) set()
     else if ( visit != 'rc.2' ) set()
+
+}
+const logInteraction = () => {
+
+    let xhttp = new XMLHttpRequest()
+    xhttp.open('POST', './api/analytics', true)
+    xhttp.send(JSON.stringify({
+        game: 'played',
+        version: 'rc.2',
+        chances: 0,
+    }))
+
+    visited = true
 
 }
 const logWord = () => { 
@@ -878,7 +893,8 @@ const backspace = () => {
 const enter = () => {
 
     if ( !isValid() ) return
-    
+    if ( !visited ) logInteraction()
+
     let resultant = crossCheck()
     paintLetters(resultant)
 
