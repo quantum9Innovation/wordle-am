@@ -1,4 +1,15 @@
 .word {
-  width: 80%;
-  margin-left: 10%;
+  margin-left: 5vh;
+}
+
+@media (max-aspect-ratio: 1/1) {
+  .word {
+    margin-left: 5.6vw;
+  }
+}
+
+@media (max-aspect-ratio: 2/3) {
+  .word {
+    margin-left: 9vw;
+  }
 }

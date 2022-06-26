@@ -278,7 +278,7 @@ button {
 
 #content {
   position: absolute;
-  width: 50vh;
+  width: 67vh;
   height: 50vh;
   left: calc(50vw - 25vh);
   top: 17vh;
@@ -803,7 +803,7 @@ button {
   }
   
   #content {
-    width: 67vw;
+    width: 75vw;
     left: 16.5vw;
     padding-top: calc(25vh - 22.5vw);
     padding-left: 11vw;
