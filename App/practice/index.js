@@ -59,6 +59,7 @@ let timerCounter = 10
 let timerInterval
 let content = document.getElementById('content')
 let square = [1, 1]
+let visited = true
 
 
 // Timezones
@@ -539,15 +540,25 @@ const expiryDate = () => {
 }
 const logVisit = () => {
     
-    Cookies.set('visited', 'rc.2', { expires: 7 })
+    // Log visit
+    let set = () => {
+       
+        visited = false
+        Cookies.set('visited', 'rc.2', { expires: 7 })
 
-    let xhttp = new XMLHttpRequest()
-    xhttp.open('POST', './api/analytics', true)
-    xhttp.send(JSON.stringify({
-        game: 'visit',
-        version: 'rc.2',
-        chances: 0,
-    }))
+        let xhttp = new XMLHttpRequest()
+        xhttp.open('POST', './api/analytics', true)
+        xhttp.send(JSON.stringify({
+            game: 'visit',
+            version: 'rc.2',
+            chances: 0,
+        })) 
+
+    }
+    let visit = Cookies.get('visited')
+
+    if ( !visit ) set()
+    else if ( visit != 'rc.2' ) set()
 
 }
 const logWord = () => { 
@@ -584,6 +595,19 @@ const logWin = () => {
         recDate: M + '/' + D + '/' + Y,
         chances: square[0],
     })) 
+
+}
+const logInteraction = () => {
+
+    let xhttp = new XMLHttpRequest()
+    xhttp.open('POST', './api/analytics', true)
+    xhttp.send(JSON.stringify({
+        game: 'played',
+        version: 'rc.2',
+        chances: 0,
+    }))
+
+    visited = true
 
 }
 const getWords = () => {
@@ -792,6 +816,7 @@ const backspace = () => {
 const enter = () => {
 
     if ( !isValid() ) return
+    if ( !visited ) logInteraction()
     
     let resultant = crossCheck()
     paintLetters(resultant)
