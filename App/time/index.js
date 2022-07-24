@@ -8,7 +8,6 @@ import Cookies from '../Modules/js.cookie.min.mjs'
 // Constants
 let word = ''
 
-let lastUpdate = new Date()
 let expire = new Date()
 let waiting = false
 
@@ -531,18 +530,6 @@ const endLoad = () => {
 
 
 // Resource getters
-const loadUpdate = async URL => {
-    
-    let response = await fetch(URL)
-    let text = await response.text()
-    let date = text.split('\n')[0].split('/')
-    
-    lastUpdate = new Date(date[2], date[0] - 1, date[1])
-    lastUpdate.setHours(0, 0, 0, 0)
-    lastUpdate = toLocal(lastUpdate)
-
-}
-
 const loadDictionary = async URL => {
     
     let response = await fetch(URL)
@@ -584,16 +571,6 @@ const expiryDate = () => {
     expireEAT.setDate(expireEAT.getDate() + 1)
 
     let expire = toLocal(expireEAT)
-    let e_expire = lastUpdate
-    e_expire.setDate(e_expire.getDate() + 1)
-
-    if ( expire.getTime() != e_expire.getTime() ) {
-        
-        let diff = Date.now() - e_expire
-        if ( diff < 30 * 60 * 1000 ) { waiting = true; return e_expire }
-
-    }
-
     return expire
 
 }
@@ -1168,7 +1145,6 @@ window.onload = () => {
 
     let promises = [
         loadDictionary(dictionaryURL), 
-        loadUpdate(updateURL),
     ]
     Promise.all( 
         promises.map(
