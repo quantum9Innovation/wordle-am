@@ -507,6 +507,36 @@ const endLoad = () => {
 
 }
 
+const makeModal = () => {
+
+    // Create instructions/welcome modal
+    let modal = document.createElement('div')
+    modal.id = 'welcome'
+    
+    let content = document.createElement('h1')
+    content.id = 'welcome-content'
+    content.innerText = 'የተደበቀውን ቃል ፈልግ'
+
+    let continueBtn = document.createElement('button')
+    continueBtn.id = 'continue-btn'
+    continueBtn.innerText = 'ወደ ጨዋታ'
+    continueBtn.addEventListener('click', () => { modal.classList.add('hide') })
+    
+    let instructionsBtn = document.createElement('button')
+    instructionsBtn.id = 'instructions-btn'
+    instructionsBtn.innerText = 'መመሪያዎች'
+    instructionsBtn.addEventListener(
+        'click', 
+        () => { window.location.replace('./guide/') }
+    )
+
+    modal.appendChild(content)
+    modal.appendChild(continueBtn)
+    modal.appendChild(instructionsBtn)
+    document.body.appendChild(modal)
+
+}
+
 
 // Resource getters
 const loadUpdate = async URL => {
@@ -588,7 +618,9 @@ const logVisit = () => {
             game: 'visit',
             version: 'rc.2',
             chances: 0,
-        })) 
+        }))
+        
+        makeModal()
 
     }
     let visit = Cookies.get('visited')
