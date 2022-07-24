@@ -7,7 +7,6 @@ import Cookies from '../Modules/js.cookie.min.mjs'
 
 // Constants
 let word = ''
-let lastUpdate = new Date()
 let expire = new Date()
 let dictionary = []
 const updateURL = '../Data/update.txt'
@@ -484,16 +483,6 @@ const endLoad = () => {
 
 
 // Resource getters
-const loadUpdate = async URL => {
-    
-    let response = await fetch(URL)
-    let text = await response.text()
-    let date = text.split('\n')[0].split('/')
-    
-    lastUpdate = new Date(date[2], date[0] - 1, date[1])
-
-}
-
 const loadDictionary = async URL => {
     
     let response = await fetch(URL)
@@ -544,13 +533,13 @@ const logVisit = () => {
     let set = () => {
        
         visited = false
-        Cookies.set('visited', 'rc.2', { expires: 7 })
+        Cookies.set('visited', 'v1', { expires: 7 })
 
         let xhttp = new XMLHttpRequest()
         xhttp.open('POST', './api/analytics', true)
         xhttp.send(JSON.stringify({
             game: 'visit',
-            version: 'rc.2',
+            version: 'v1',
             chances: 0,
         })) 
 
@@ -558,7 +547,7 @@ const logVisit = () => {
     let visit = Cookies.get('visited')
 
     if ( !visit ) set()
-    else if ( visit != 'rc.2' ) set()
+    else if ( visit != 'v1' ) set()
 
 }
 const logWord = () => { 
@@ -591,7 +580,7 @@ const logWin = () => {
     xhttp.open('POST', '../api/analytics', true)
     xhttp.send(JSON.stringify({
         game: 'practice',
-        version: 'rc.2',
+        version: 'v1',
         recDate: M + '/' + D + '/' + Y,
         chances: square[0],
     })) 
@@ -603,7 +592,7 @@ const logInteraction = () => {
     xhttp.open('POST', './api/analytics', true)
     xhttp.send(JSON.stringify({
         game: 'played',
-        version: 'rc.2',
+        version: 'v1',
         chances: 0,
     }))
 
@@ -964,8 +953,7 @@ window.onload = () => {
     paint(square)
 
     let promises = [
-        loadDictionary(dictionaryURL), 
-        loadUpdate(updateURL),
+        loadDictionary(dictionaryURL),
     ]
     Promise.all( 
         promises.map(

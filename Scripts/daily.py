@@ -1,4 +1,3 @@
-import math
 import random
 import datetime
 
@@ -18,5 +17,10 @@ if deltaTime < 0 or deltaTime > 26:
     exit(1)
 
 with open('./App/Data/salt.txt', 'w') as f: f.write(salt)
-with open('./App/Data/update.txt', 'w') as f: 
-    f.write(update.strftime('%-m/%-d/%Y'))
+
+
+# does not exist
+# ===
+
+# with open('./App/Data/update.txt', 'w') as f: 
+#     f.write(update.strftime('%-m/%-d/%Y'))

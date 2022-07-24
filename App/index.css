@@ -72,10 +72,18 @@ body {
   color: var(--foreground);
 }
 
+h1 {
+  font-size: 4vh;
+  text-align: center;
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+}
+
 button {
   border: none;
   font-family: noto;
   color: var(--foreground);
+  cursor: pointer;
 }
 
 #load {
@@ -195,6 +203,38 @@ button {
   height: 5vh;
 }
 
+#welcome {
+  position: absolute;
+  top: 25vh;
+  left: calc(50vw - 25vh);
+  height: 50vh;
+  width: 50vh;
+  border-radius: 5vh;
+  z-index: 10;
+}
+
+#welcome.hide {
+  visibility: hidden;
+}
+
+#welcome button {
+  font-size: 2.5vh;
+  height: 8vh;
+  width: 17vh;
+  border-radius: 2vh;
+  background-color: var(--select);
+  color: var(--background);
+}
+
+#welcome-content {
+  margin-top: 18vh;
+}
+
+#continue-btn {
+  margin-left: 6.5vh;
+  margin-right: 3vh;
+}
+
 #reveal-modal {
   visibility: hidden;
   position: absolute;
@@ -211,10 +251,19 @@ button {
     background: var(--transparent);
     backdrop-filter: blur(1vh);
   }
+
+  #welcome {
+    background: var(--transparent);
+    backdrop-filter: blur(1vh);
+  }
 }
 
 @supports not (backdrop-filter: blur(1vh)) {
   #reveal-modal {
+    background-color: var(--semi-transparent);
+  }
+
+  #welcome {
     background-color: var(--semi-transparent);
   }
 }
@@ -1162,6 +1211,32 @@ button {
   
   .inline-icon {
     margin-top: calc(2vh - 2.5vw);
+  }
+
+  #welcome {
+    top: 25vh;
+    left: 0px;
+    height: 50vh;
+    width: 100vw;
+    border-radius: 5vw;
+  }
+  
+  #welcome button {
+    font-size: 5vw;
+    height: 8vh;
+    width: 40vw;
+    border-radius: 2vw;
+    background-color: var(--select);
+    color: var(--background);
+  }
+  
+  #welcome-content {
+    margin-top: 18vh;
+  }
+  
+  #continue-btn {
+    margin-left: 5vw;
+    margin-right: 10vw;
   }
 
 }

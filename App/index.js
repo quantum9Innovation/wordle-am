@@ -8,7 +8,6 @@ import Cookies from './Modules/js.cookie.min.mjs'
 // Constants
 let word = ''
 
-let lastUpdate = new Date()
 let expire = new Date()
 let waiting = false
 
@@ -507,20 +506,38 @@ const endLoad = () => {
 
 }
 
+const makeModal = () => {
 
-// Resource getters
-const loadUpdate = async URL => {
+    // Create instructions/welcome modal
+    let modal = document.createElement('div')
+    modal.id = 'welcome'
     
-    let response = await fetch(URL)
-    let text = await response.text()
-    let date = text.split('\n')[0].split('/')
+    let content = document.createElement('h1')
+    content.id = 'welcome-content'
+    content.innerText = 'የተደበቀውን ቃል ፈልግ'
+
+    let continueBtn = document.createElement('button')
+    continueBtn.id = 'continue-btn'
+    continueBtn.innerText = 'ወደ ጨዋታ'
+    continueBtn.addEventListener('click', () => { modal.classList.add('hide') })
     
-    lastUpdate = new Date(date[2], date[0] - 1, date[1])
-    lastUpdate.setHours(0, 0, 0, 0)
-    lastUpdate = toLocal(lastUpdate)
+    let instructionsBtn = document.createElement('button')
+    instructionsBtn.id = 'instructions-btn'
+    instructionsBtn.innerText = 'መመሪያዎች'
+    instructionsBtn.addEventListener(
+        'click', 
+        () => { window.location.replace('./guide/') }
+    )
+
+    modal.appendChild(content)
+    modal.appendChild(continueBtn)
+    modal.appendChild(instructionsBtn)
+    document.body.appendChild(modal)
 
 }
 
+
+// Resource getters
 const loadDictionary = async URL => {
     
     let response = await fetch(URL)
@@ -562,16 +579,6 @@ const expiryDate = () => {
     expireEAT.setDate(expireEAT.getDate() + 1)
 
     let expire = toLocal(expireEAT)
-    let e_expire = lastUpdate
-    e_expire.setDate(e_expire.getDate() + 1)
-
-    if ( expire.getTime() != e_expire.getTime() ) {
-        
-        let diff = Date.now() - e_expire
-        if ( diff < 30 * 60 * 1000 ) { waiting = true; return e_expire }
-
-    }
-
     return expire
 
 }
@@ -580,21 +587,23 @@ const logVisit = () => {
     let set = () => {
         
         visited = false
-        Cookies.set('visited', 'rc.2', { expires: 7 })
+        Cookies.set('visited', 'v1', { expires: 7 })
 
         let xhttp = new XMLHttpRequest()
         xhttp.open('POST', './api/analytics', true)
         xhttp.send(JSON.stringify({
             game: 'visit',
-            version: 'rc.2',
+            version: 'v1',
             chances: 0,
-        })) 
+        }))
+        
+        makeModal()
 
     }
     let visit = Cookies.get('visited')
 
     if ( !visit ) set()
-    else if ( visit != 'rc.2' ) set()
+    else if ( visit != 'v1' ) set()
 
 }
 const logInteraction = () => {
@@ -603,7 +612,7 @@ const logInteraction = () => {
     xhttp.open('POST', './api/analytics', true)
     xhttp.send(JSON.stringify({
         game: 'played',
-        version: 'rc.2',
+        version: 'v1',
         chances: 0,
     }))
 
@@ -642,7 +651,7 @@ const logWin = () => {
     xhttp.open('POST', './api/analytics', true)
     xhttp.send(JSON.stringify({
         game: 'standard',
-        version: 'rc.2',
+        version: 'v1',
         recDate: M + '/' + D + '/' + Y,
         chances: square[0],
     })) 
@@ -1049,7 +1058,6 @@ window.onload = () => {
 
     let promises = [
         loadDictionary(dictionaryURL), 
-        loadUpdate(updateURL),
     ]
     Promise.all( 
         promises.map(
