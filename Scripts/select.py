@@ -1,6 +1,4 @@
 import sys
-import math
-import random
 import datetime
 
 args = sys.argv[1:]
