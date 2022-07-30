@@ -64,6 +64,7 @@ let timerInterval
 let content = document.getElementById('content')
 let square = [1, 1]
 let visited = true
+let played = false
 
 
 // Timezones
@@ -902,7 +903,6 @@ const backspace = () => {
 const enter = () => {
 
     if ( !isValid() ) return
-    if ( !visited ) logInteraction()
 
     let resultant = crossCheck()
     paintLetters(resultant)
@@ -943,6 +943,7 @@ const enter = () => {
     paint(square)
     square[0]++
     if ( square[0] > 5 ) createNextBlock()
+    if ( !played && square[0] == 2 ) logInteraction()
 
     square[1] = 1
     paint(square)
@@ -1024,6 +1025,8 @@ const reveal = () => {
 const restoreSession = () => {
 
     let words = getWords()
+    if ( words.length != 0 ) played = true
+
     for ( let i = 0; i < words.length; i++ ) {
 
         let word = words[i].split('')
