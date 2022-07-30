@@ -805,7 +805,6 @@ const backspace = () => {
 const enter = () => {
 
     if ( !isValid() ) return
-    if ( !visited ) logInteraction()
     
     let resultant = crossCheck()
     paintLetters(resultant)
