@@ -544,10 +544,9 @@ const logVisit = () => {
         })) 
 
     }
+    
     let visit = Cookies.get('visited')
-
-    if ( !visit ) set()
-    else if ( visit != 'v1' ) set()
+    set()
 
 }
 const logWord = () => { 
