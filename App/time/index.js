@@ -592,11 +592,9 @@ const logVisit = () => {
         })) 
 
     }
-    let visit = Cookies.get('visited')
-
-    if ( !visit ) set()
-    else if ( visit != 'v1' ) set()
     
+    let visit = Cookies.get('visited')
+    set()
     
     // Site visit
     let visited = Cookies.get('T/visited')
